@@ -22,10 +22,13 @@
     self.navigator = [[UMDemoSlideNavViewController alloc] initWithItems:@[@[
                       [[UMNavigationController alloc] initWithRootViewControllerURL:[[NSURL URLWithString:@"um://demo"]
                                                                                      addParams:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                                                @"Demo2", @"title", nil]]],
+                                                                                                @"Demo1", @"title", nil]]],
                       [[UMNavigationController alloc] initWithRootViewControllerURL:[[NSURL URLWithString:@"um://demo"]
                                                                                      addParams:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                                                @"Demo1", @"title", nil]]],
+                                                                                                @"Demo2", @"title", nil]]],
+                      [[UMNavigationController alloc] initWithRootViewControllerURL:[[NSURL URLWithString:@"http://sf.gg"]
+                                                                                     addParams:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                                @"SegmentFault", @"title", nil]]],
                       ]]];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

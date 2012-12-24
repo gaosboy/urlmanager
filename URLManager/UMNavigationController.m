@@ -8,6 +8,7 @@
 
 #import "UMNavigationController.h"
 #import "UMViewController.h"
+#import "UMWebViewController.h"
 
 @interface UMNavigationController ()
 @end
@@ -57,6 +58,9 @@
             viewController = (UMViewController *)[[class alloc] initWithURL:url query:query];
         }
         viewController.navigator = self;
+    }
+    else if ([@"http" isEqualToString:[url scheme]]) {
+        viewController = (UMViewController *)[[UMWebViewController alloc] initWithURL:url query:query];
     }
     
     return viewController;

@@ -20,7 +20,8 @@
 @end
 
 @interface NSString (UMString)
-
+- (BOOL)containsString:(NSString *)string options:(NSStringCompareOptions)options;
+- (BOOL)containsString:(NSString *)string;
 - (NSString *)urlencode;
 - (NSString *)urldecode;
 

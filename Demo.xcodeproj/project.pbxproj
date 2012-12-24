@@ -21,6 +21,11 @@
 		D753F2711685D71B007C2E91 /* UMTools.m in Sources */ = {isa = PBXBuildFile; fileRef = D753F26C1685D71B007C2E91 /* UMTools.m */; };
 		D753F2721685D71B007C2E91 /* UMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D753F26E1685D71B007C2E91 /* UMViewController.m */; };
 		D76F5C731685736400215856 /* UMDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D76F5C721685736400215856 /* UMDemoViewController.m */; };
+		D7D4085C16870E1A00C5C256 /* goBackItem.png in Resources */ = {isa = PBXBuildFile; fileRef = D7D4085816870E1A00C5C256 /* goBackItem.png */; };
+		D7D4085D16870E1A00C5C256 /* goBackItem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7D4085916870E1A00C5C256 /* goBackItem@2x.png */; };
+		D7D4085E16870E1A00C5C256 /* goForwardItem.png in Resources */ = {isa = PBXBuildFile; fileRef = D7D4085A16870E1A00C5C256 /* goForwardItem.png */; };
+		D7D4085F16870E1A00C5C256 /* goForwardItem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7D4085B16870E1A00C5C256 /* goForwardItem@2x.png */; };
+		D7D4086016870F1A00C5C256 /* UMWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D4085716870DEC00C5C256 /* UMWebViewController.m */; };
 		D7F6448C1685741B00DFA1D6 /* UMDemoSlideNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F6448B1685741B00DFA1D6 /* UMDemoSlideNavViewController.m */; };
 		D7F6448F1685767700DFA1D6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F6448E1685767700DFA1D6 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
@@ -49,6 +54,12 @@
 		D753F26E1685D71B007C2E91 /* UMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMViewController.m; sourceTree = "<group>"; };
 		D76F5C711685736400215856 /* UMDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMDemoViewController.h; sourceTree = "<group>"; };
 		D76F5C721685736400215856 /* UMDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMDemoViewController.m; sourceTree = "<group>"; };
+		D7D4085616870DEC00C5C256 /* UMWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMWebViewController.h; sourceTree = "<group>"; };
+		D7D4085716870DEC00C5C256 /* UMWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMWebViewController.m; sourceTree = "<group>"; };
+		D7D4085816870E1A00C5C256 /* goBackItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goBackItem.png; sourceTree = "<group>"; };
+		D7D4085916870E1A00C5C256 /* goBackItem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goBackItem@2x.png"; sourceTree = "<group>"; };
+		D7D4085A16870E1A00C5C256 /* goForwardItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goForwardItem.png; sourceTree = "<group>"; };
+		D7D4085B16870E1A00C5C256 /* goForwardItem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goForwardItem@2x.png"; sourceTree = "<group>"; };
 		D7F6448A1685741B00DFA1D6 /* UMDemoSlideNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMDemoSlideNavViewController.h; sourceTree = "<group>"; };
 		D7F6448B1685741B00DFA1D6 /* UMDemoSlideNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMDemoSlideNavViewController.m; sourceTree = "<group>"; };
 		D7F6448E1685767700DFA1D6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -129,6 +140,12 @@
 		D753F2661685D71B007C2E91 /* URLManager */ = {
 			isa = PBXGroup;
 			children = (
+				D7D4085816870E1A00C5C256 /* goBackItem.png */,
+				D7D4085916870E1A00C5C256 /* goBackItem@2x.png */,
+				D7D4085A16870E1A00C5C256 /* goForwardItem.png */,
+				D7D4085B16870E1A00C5C256 /* goForwardItem@2x.png */,
+				D7D4085616870DEC00C5C256 /* UMWebViewController.h */,
+				D7D4085716870DEC00C5C256 /* UMWebViewController.m */,
 				D753F2671685D71B007C2E91 /* UMNavigationController.h */,
 				D753F2681685D71B007C2E91 /* UMNavigationController.m */,
 				D753F2691685D71B007C2E91 /* UMSlideNavigationController.h */,
@@ -197,6 +214,10 @@
 				D74915E6168572C900D1E37C /* Default.png in Resources */,
 				D74915E8168572C900D1E37C /* Default@2x.png in Resources */,
 				D74915EA168572C900D1E37C /* Default-568h@2x.png in Resources */,
+				D7D4085C16870E1A00C5C256 /* goBackItem.png in Resources */,
+				D7D4085D16870E1A00C5C256 /* goBackItem@2x.png in Resources */,
+				D7D4085E16870E1A00C5C256 /* goForwardItem.png in Resources */,
+				D7D4085F16870E1A00C5C256 /* goForwardItem@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7D4086016870F1A00C5C256 /* UMWebViewController.m in Sources */,
 				D74915E0168572C900D1E37C /* main.m in Sources */,
 				D74915E4168572C900D1E37C /* UMAppDelegate.m in Sources */,
 				D76F5C731685736400215856 /* UMDemoViewController.m in Sources */,
