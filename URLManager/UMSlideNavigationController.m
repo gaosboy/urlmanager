@@ -22,13 +22,14 @@
 // 标记ContentView的静止状态left
 @property (assign, nonatomic) CGFloat           left;
 
+// 标记滑动状态
+@property (assign, nonatomic) BOOL              moving;
+
 - (void)moveContentViewTo:(CGPoint)toPoint WithPath:(UIBezierPath *)path inDuration:(CGFloat)duration;
 - (void)slideButtonClicked;
 
 - (void)addPanRecognizer;
 - (void)slidePanAction:(UIPanGestureRecognizer *)recognizer;
-
-- (void)addShadowToContentView;
 
 @end
 
@@ -49,11 +50,6 @@
         return self;
     }
     return nil;
-}
-
-- (void)addShadowToContentView
-{
-    
 }
 
 - (void)addPanRecognizer
@@ -129,11 +125,20 @@
     CGPoint velocity = [recognizer velocityInView:self.contentView];
     CGFloat newLeft = self.left;
     if(recognizer.state == UIGestureRecognizerStateChanged && 2 <= ABS(self.left - ABS(translation.x))) { // sliding.
+        if (! self.moving) {
+            if (0 < self.left) {
+                [self viewWillDisappear:YES];
+            }
+            else {
+                [self viewWillAppear:YES];
+            }
+        }
+        self.moving = YES;
         newLeft = self.left + translation.x;
         if (0 > newLeft) {
             newLeft = 0;
         }
-        else if (SLIDE_VIEW_WIDTH < newLeft){
+        else if (SLIDE_VIEW_WIDTH < newLeft) {
             newLeft = SLIDE_VIEW_WIDTH;
         }
         if (SILENT_DISTANCE < abs(translation.x)) { // more than SILENT, move
@@ -191,8 +196,9 @@
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
-
+    self.moving = YES;
     if (0.0f < self.contentView.left) {
+        [self viewWillDisappear:YES];
         [path addLineToPoint:CGPointMake(self.contentView.width, 0.0f)];
         [path addLineToPoint:CGPointMake(0.0f, 0.0f)];
         [self moveContentViewTo:CGPointMake(0.0f, 0.0f)
@@ -200,6 +206,7 @@
                      inDuration:ANIMATION_DURATION + 0.2];
     }
     else {
+        [self viewWillAppear:YES];
         [path addLineToPoint:CGPointMake(SLIDE_VIEW_WIDTH, 0.0f)];
         [self moveContentViewTo:CGPointMake(SLIDE_VIEW_WIDTH, 0.0f)
                        WithPath:path
@@ -224,11 +231,14 @@
         backToNormal.tag = 1000002;
         [backToNormal addTarget:self action:@selector(slideButtonClicked) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:backToNormal];
+        [self viewDidAppear:YES];
     }
     else {
         __weak UIControl *backToNormal = (UIControl *)[self.contentView viewWithTag:1000002];
         [backToNormal removeFromSuperview];
+        [self viewDidDisappear:YES];
     }
+    self.moving = NO;
 }
 
 @end
