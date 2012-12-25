@@ -22,11 +22,11 @@
 - (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl;
 - (void)openedFromViewControllerWithURL:(NSURL *)aUrl;
 
-@property (strong, nonatomic) NSURL                         *url;
-@property (strong, nonatomic) UMNavigationController        *navigator;
-@property (strong, nonatomic) UMSlideNavigationController   *slideNavigator;
+@property (strong, nonatomic) NSURL                                     *url;
+@property (unsafe_unretained, nonatomic) UMNavigationController         *navigator;
+@property (unsafe_unretained, nonatomic) UMSlideNavigationController    *slideNavigator;
 
-@property (strong, nonatomic) NSDictionary                  *params;
-@property (strong, nonatomic) NSDictionary                  *query;
+@property (strong, nonatomic) NSDictionary                              *params;
+@property (strong, nonatomic) NSDictionary                              *query;
 
 @end

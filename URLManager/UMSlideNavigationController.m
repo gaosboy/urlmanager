@@ -226,7 +226,7 @@
     self.left = toPoint.x;
     
     if (0 < toPoint.x) {
-        UIControl *backToNormal = (UIControl *)[self.contentView viewWithTag:1000002];
+        __weak UIControl *backToNormal = (UIControl *)[self.contentView viewWithTag:1000002];
         if (nil == backToNormal) {
             backToNormal = [[UIControl alloc] initWithFrame:self.contentView.bounds];
         }
