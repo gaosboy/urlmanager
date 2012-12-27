@@ -90,6 +90,8 @@ UMSlideNavigationController
     self.navigator = [[UMDemoSlideNavViewController alloc] initWithItems:@[@[navA, navB], @[navA]]];
 ```
 
+![侧栏演示](http://pic.yupoo.com/gaosboy_v/CwmNfGn2/tW3ok.png)
+
 UMWebViewController
 ----
 当使用URL管理ViewController过程中，如果出现http协议的URL则自动调用UMWebViewController，载入WebView
