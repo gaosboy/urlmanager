@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 SegmentFault.com. All rights reserved.
 //
 
+#define UMNotificationWillShow      @"um_slide_notifcation_slide_nav_will_show"
+#define UMNotificationHidden        @"um_slide_notifcation_slide_nav_hidden"
+
 #import <UIKit/UIKit.h>
 
 @interface UMSlideNavigationController : UIViewController

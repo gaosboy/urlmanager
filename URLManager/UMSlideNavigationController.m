@@ -59,6 +59,18 @@
     self.left = self.contentView.left;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UMNotificationWillShow object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UMNotificationHidden object:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -235,14 +247,25 @@
         [backToNormal addTarget:self action:@selector(slideButtonClicked) forControlEvents:UIControlEventTouchUpInside];
         [backToNormal removeFromSuperview];
         [self.contentView addSubview:backToNormal];
-        [self viewDidAppear:YES];
+        [self performSelector:@selector(slideNavigatorDidAppear) withObject:nil afterDelay:duration];
     }
     else {
         __weak UIControl *backToNormal = (UIControl *)[self.contentView viewWithTag:1000002];
         [backToNormal removeFromSuperview];
-        [self viewDidDisappear:YES];
+        [self performSelector:@selector(slideNavigatorDidDisappear) withObject:nil afterDelay:duration];
     }
     self.moving = NO;
+}
+
+// 延迟运行
+- (void)slideNavigatorDidDisappear
+{
+    [self viewDidDisappear:YES];
+}
+
+- (void)slideNavigatorDidAppear
+{
+    [self viewDidAppear:YES];
 }
 
 @end
