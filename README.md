@@ -89,6 +89,21 @@ UMSlideNavigationController
 
     self.navigator = [[UMDemoSlideNavViewController alloc] initWithItems:@[@[navA, navB], @[navA]]];
 ```
+侧栏滑动即将出现和已经消失时，将会发送两个通知。
+
+```
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UMNotificationWillShow object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UMNotificationHidden object:nil];
+}
+```
 
 ![侧栏演示](http://pic.yupoo.com/gaosboy_v/CwmNfGn2/tW3ok.png)
 
