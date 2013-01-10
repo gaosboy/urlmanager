@@ -6,11 +6,10 @@
 //  Copyright (c) 2012 jiajun. All rights reserved.
 //
 
+#define ANIMATION_DURATION          0.3f
 #define DEFAULT_SLIDE_VC_WIDTH      320.0f - 44.0f
 #define SILENT_DISTANCE             40.0f
 #define SILENT_DISTANCE_B           20.0f
-
-#define ANIMATION_DURATION          0.3f
 
 #import "UMViewController.h"
 

@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 SegmentFault.com. All rights reserved.
 //
 
-#import "UMSlideNavigationController.h"
-#import "UMViewController.h"
-
-#define SLIDE_VIEW_WIDTH                260.0f
 #define ANIMATION_DURATION              0.3f
 #define SILENT_DISTANCE                 30.0f
+#define SLIDE_VIEW_WIDTH                260.0f
+
+#import "UMSlideNavigationController.h"
+#import "UMViewController.h"
 
 
 @interface UMSlideNavigationController ()
