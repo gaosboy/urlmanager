@@ -13,9 +13,9 @@
 
 @interface NSURL (UMURL)
 
+- (NSURL *)addParams:(NSDictionary*)params;
 - (NSDictionary *)params;
 - (NSString *)protocol;
-- (NSURL *)addParams:(NSDictionary*)params;
 
 @end
 

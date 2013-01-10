@@ -12,38 +12,25 @@
 
 @property (strong, nonatomic) UIToolbar                 *toolBar;
 
+- (void)goBack;
+- (void)goForward;
+- (void)initToolBar;
+- (void)refresh;
+- (void)stop;
+
 @end
 
 @implementation UMWebViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    if (nil == self.webView) {
-        self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, self.view.height - 49.0f)];
-        self.webView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
-        self.webView.multipleTouchEnabled = NO;
-        self.webView.scalesPageToFit = YES;
-        self.webView.delegate = self;
-        self.webView.autoresizesSubviews = YES;
-        
-        [self.view addSubview:self.webView];
-    }
+#pragma mark - private
 
-    [self initToolBar];
-	[self loadRequest];
+- (void)goBack {
+	[self.webView goBack];
 }
 
-- (void)loadRequest {
-    if (! [@"http" isEqualToString:[self.url protocol]]) {
-        self.url = [NSURL URLWithString:[self.params objectForKey:@"url"]];
-    }
-    NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:self.url];
-    [self.webView loadRequest:requestObj];
+- (void)goForward {
+	[self.webView goForward];
 }
-
-#pragma mark - toolBar
 
 - (void)initToolBar {
 	if (nil == self.toolBar) {
@@ -83,41 +70,6 @@
     }
 }
 
-- (void)reloadToolBar {
-	if (self.webView.canGoBack) {
-		[[[self.toolBar items] objectAtIndex:0] setEnabled:YES];
-	}
-	else {
-		[[[self.toolBar items] objectAtIndex:0] setEnabled:NO];
-	}
-	
-	if (self.webView.canGoForward) {
-		[[[self.toolBar items] objectAtIndex:2] setEnabled:YES];
-	}
-	else {
-		[[[self.toolBar items] objectAtIndex:2] setEnabled:NO];
-	}
-    
-	if (self.webView.loading) {
-		[[[self.toolBar items] objectAtIndex:6] setEnabled:YES];
-		[[[self.toolBar items] objectAtIndex:4] setEnabled:NO];
-	}
-	else {
-		[[[self.toolBar items] objectAtIndex:6] setEnabled:YES];
-		[[[self.toolBar items] objectAtIndex:4] setEnabled:YES];
-	}
-}
-
-#pragma mark - action
-
-- (void)goBack {
-	[self.webView goBack];
-}
-
-- (void)goForward {
-	[self.webView goForward];
-}
-
 - (void)refresh {
 	[self.webView reload];
 }
@@ -146,6 +98,62 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [self reloadToolBar];
+}
+
+#pragma mark - public
+
+- (void)loadRequest {
+    if (! [@"http" isEqualToString:[self.url protocol]]) {
+        self.url = [NSURL URLWithString:[self.params objectForKey:@"url"]];
+    }
+    NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:self.url];
+    [self.webView loadRequest:requestObj];
+}
+
+- (void)reloadToolBar {
+	if (self.webView.canGoBack) {
+		[[[self.toolBar items] objectAtIndex:0] setEnabled:YES];
+	}
+	else {
+		[[[self.toolBar items] objectAtIndex:0] setEnabled:NO];
+	}
+	
+	if (self.webView.canGoForward) {
+		[[[self.toolBar items] objectAtIndex:2] setEnabled:YES];
+	}
+	else {
+		[[[self.toolBar items] objectAtIndex:2] setEnabled:NO];
+	}
+    
+	if (self.webView.loading) {
+		[[[self.toolBar items] objectAtIndex:6] setEnabled:YES];
+		[[[self.toolBar items] objectAtIndex:4] setEnabled:NO];
+	}
+	else {
+		[[[self.toolBar items] objectAtIndex:6] setEnabled:YES];
+		[[[self.toolBar items] objectAtIndex:4] setEnabled:YES];
+	}
+}
+
+#pragma mark
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    if (nil == self.webView) {
+        self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, self.view.height - 49.0f)];
+        self.webView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+        self.webView.multipleTouchEnabled = NO;
+        self.webView.scalesPageToFit = YES;
+        self.webView.delegate = self;
+        self.webView.autoresizesSubviews = YES;
+        
+        [self.view addSubview:self.webView];
+    }
+    
+    [self initToolBar];
+	[self loadRequest];
 }
 
 @end

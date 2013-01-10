@@ -99,6 +99,22 @@
 
 @implementation NSURL (UMSTRING)
 
+- (NSURL *)addParams:(NSDictionary *)params {
+    NSMutableString *_add = nil;
+    if (NSNotFound != [self.absoluteString rangeOfString:@"?"].location) {
+        _add = [NSMutableString stringWithString:@"&"];
+    }else {
+        _add = [NSMutableString stringWithString:@"?"];
+    }
+    for (NSString* key in [params allKeys]) {
+        if ([params objectForKey:key] && 0 < [[params objectForKey:key] length]) {
+            [_add appendFormat:@"%@=%@&",key,[[params objectForKey:key] urlencode]];
+        }
+    }
+    
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",self.absoluteString,[_add substringToIndex:[_add length] - 1]]];
+}
+
 - (NSDictionary *)params {
 	NSMutableDictionary* pairs = [NSMutableDictionary dictionary];
 	if (NSNotFound != [self.absoluteString rangeOfString:@"?"].location) {
@@ -126,22 +142,6 @@
         return [self.absoluteString substringToIndex:([self.absoluteString rangeOfString:@"://"].location)];
     }
     return @"";
-}
-
-- (NSURL *)addParams:(NSDictionary *)params {
-    NSMutableString *_add = nil;
-    if (NSNotFound != [self.absoluteString rangeOfString:@"?"].location) {
-        _add = [NSMutableString stringWithString:@"&"];
-    }else {
-        _add = [NSMutableString stringWithString:@"?"];
-    }
-    for (NSString* key in [params allKeys]) {
-        if ([params objectForKey:key] && 0 < [[params objectForKey:key] length]) {
-            [_add appendFormat:@"%@=%@&",key,[[params objectForKey:key] urlencode]];
-        }
-    }
-    
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",self.absoluteString,[_add substringToIndex:[_add length] - 1]]];
 }
 
 @end

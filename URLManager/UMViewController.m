@@ -19,12 +19,12 @@
 
 @implementation UMViewController
 
-@synthesize url                     = _url;
 @synthesize navigator               = _navigator;
+@synthesize url                     = _url;
 @synthesize params                  = _params;
 @synthesize query                   = _query;
 
-#pragma mark - init
+#pragma mark - public
 
 - (id)initWithURL:(NSURL *)aUrl
 {
@@ -46,20 +46,20 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)openedFromViewControllerWithURL:(NSURL *)aUrl
 {
-    [super viewDidLoad];
 }
-
-#pragma mark - before / after open
 
 - (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl
 {
     return YES;
 }
 
-- (void)openedFromViewControllerWithURL:(NSURL *)aUrl
+#pragma mark
+
+- (void)viewDidLoad
 {
+    [super viewDidLoad];
 }
 
 @end

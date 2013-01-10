@@ -14,9 +14,9 @@
 @interface UMSlideNavigationController : UIViewController
 
 @property (strong, nonatomic)   NSArray             *items;
-@property (strong, nonatomic)   UITableView         *slideView;
-@property (strong, nonatomic)   UINavigationItem    *navItem;
 @property (strong, nonatomic)   NSIndexPath         *currentIndex;
+@property (strong, nonatomic)   UINavigationItem    *navItem;
+@property (strong, nonatomic)   UITableView         *slideView;
 
 - (id)initWithItems:(NSArray *)items;
 - (void)showItemAtIndex:(NSIndexPath *)index;

@@ -17,7 +17,24 @@
 
 @synthesize rootViewController = _rootViewController;
 
-#pragma mark - init
+#pragma mark - static
+
++ (NSMutableDictionary *)config
+{
+    static NSMutableDictionary *config;
+    if (nil == config) {
+        config = [[NSMutableDictionary alloc] init];
+    }
+    
+    return config;
+}
+
++ (void)setViewControllerName:(NSString *)className forURL:(NSString *)url
+{
+    [[UMNavigationController config] setValue:className forKey:url];
+}
+
+#pragma mark - public
 
 - (id)initWithRootViewControllerURL:(NSURL *)url
 {
@@ -30,18 +47,20 @@
     return nil;
 }
 
-- (id)initWithRootViewController:(UMViewController *)aRootViewController
+- (void)openURL:(NSURL *)url
 {
-    self = [super initWithRootViewController:aRootViewController];
-    if (self) {
-        aRootViewController.navigator = self;
-        self.rootViewController = aRootViewController;
-        return self;
-    }
-    return nil;
+    [self openURL:url withQuery:nil];
 }
 
-#pragma mark - actions
+- (void)openURL:(NSURL *)url withQuery:(NSDictionary *)query
+{
+    UMViewController *lastViewController = (UMViewController *)[self.viewControllers lastObject];
+    UMViewController *viewController = [self viewControllerForURL:url withQuery:query];
+    if ([lastViewController shouldOpenViewControllerWithURL:url]) {
+        [self pushViewController:viewController animated:YES];
+        [viewController openedFromViewControllerWithURL:lastViewController.url];
+    }
+}
 
 - (UMViewController *)viewControllerForURL:(NSURL *)url withQuery:(NSDictionary *)query
 {
@@ -72,36 +91,17 @@
     return [[[UMNavigationController config] allKeys] containsObject:urlString];
 }
 
-- (void)openURL:(NSURL *)url
-{
-    [self openURL:url withQuery:nil];
-}
+#pragma parent
 
-- (void)openURL:(NSURL *)url withQuery:(NSDictionary *)query
+- (id)initWithRootViewController:(UMViewController *)aRootViewController
 {
-    UMViewController *lastViewController = (UMViewController *)[self.viewControllers lastObject];
-    UMViewController *viewController = [self viewControllerForURL:url withQuery:query];
-    if ([lastViewController shouldOpenViewControllerWithURL:url]) {
-        [self pushViewController:viewController animated:YES];
-        [viewController openedFromViewControllerWithURL:lastViewController.url];
+    self = [super initWithRootViewController:aRootViewController];
+    if (self) {
+        aRootViewController.navigator = self;
+        self.rootViewController = aRootViewController;
+        return self;
     }
-}
-
-#pragma mark - config
-
-+ (void)setViewControllerName:(NSString *)className forURL:(NSString *)url
-{
-    [[UMNavigationController config] setValue:className forKey:url];
-}
-
-+ (NSMutableDictionary *)config
-{
-    static NSMutableDictionary *config;
-    if (nil == config) {
-        config = [[NSMutableDictionary alloc] init];
-    }
-    
-    return config;
+    return nil;
 }
 
 @end

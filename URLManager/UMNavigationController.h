@@ -12,15 +12,15 @@
 
 @interface UMNavigationController : UINavigationController
 
+@property (strong, nonatomic) UMViewController *rootViewController;
+
++ (NSMutableDictionary *)config;
++ (void)setViewControllerName:(NSString *)className forURL:(NSString *)url;
+
+- (id)initWithRootViewControllerURL:(NSURL *)url;
 - (void)openURL:(NSURL *)url withQuery:(NSDictionary *)query;
 - (void)openURL:(NSURL *)url;
-- (UMViewController *)viewControllerForURL:(NSURL *)url withQuery:(NSDictionary *)query;
 - (BOOL)URLAvailable:(NSURL *)url;
-- (id)initWithRootViewControllerURL:(NSURL *)url;
-
-+ (void)setViewControllerName:(NSString *)className forURL:(NSString *)url;
-+ (NSMutableDictionary *)config;
-
-@property (strong, nonatomic) UMViewController *rootViewController;
+- (UMViewController *)viewControllerForURL:(NSURL *)url withQuery:(NSDictionary *)query;
 
 @end

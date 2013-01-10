@@ -12,21 +12,16 @@
 #import "UMNavigationController.h"
 #import "UMSlideNavigationController.h"
 
-@interface UMViewController : UIViewController {
-    NSString                *url;
-}
+@interface UMViewController : UIViewController
+
+@property (unsafe_unretained, nonatomic) UMNavigationController         *navigator;
+@property (strong, nonatomic) NSDictionary                              *params;
+@property (strong, nonatomic) NSDictionary                              *query;
+@property (strong, nonatomic) NSURL                                     *url;
 
 - (id)initWithURL:(NSURL *)aUrl;
 - (id)initWithURL:(NSURL *)aUrl query:(NSDictionary *)query;
-
-- (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl;
 - (void)openedFromViewControllerWithURL:(NSURL *)aUrl;
-
-@property (strong, nonatomic) NSURL                                     *url;
-@property (unsafe_unretained, nonatomic) UMNavigationController         *navigator;
-@property (unsafe_unretained, nonatomic) UMSlideNavigationController    *slideNavigator;
-
-@property (strong, nonatomic) NSDictionary                              *params;
-@property (strong, nonatomic) NSDictionary                              *query;
+- (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl;
 
 @end
