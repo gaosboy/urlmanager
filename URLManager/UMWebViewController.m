@@ -10,7 +10,7 @@
 
 @interface UMWebViewController ()
 
-@property (strong, nonatomic) UIToolbar                 *toolBar;
+@property (strong, nonatomic)   UIToolbar                 *toolBar;
 
 - (void)goBack;
 - (void)goForward;

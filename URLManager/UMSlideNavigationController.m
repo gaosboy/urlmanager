@@ -17,11 +17,11 @@
 @interface UMSlideNavigationController ()
 
 // 可以滑动的View
-@property (strong, nonatomic) UIView            *contentView;
+@property (strong, nonatomic)   UIView            *contentView;
 // 标记ContentView的静止状态left
-@property (assign, nonatomic) CGFloat           left;
+@property (assign, nonatomic)   CGFloat           left;
 // 标记滑动状态
-@property (assign, nonatomic) BOOL              moving;
+@property (assign, nonatomic)   BOOL              moving;
 
 // 添加手势识别
 - (void)addPanRecognizer;

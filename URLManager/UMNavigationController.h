@@ -12,7 +12,7 @@
 
 @interface UMNavigationController : UINavigationController
 
-@property (strong, nonatomic) UMViewController *rootViewController;
+@property (strong, nonatomic)   UMViewController *rootViewController;
 
 + (NSMutableDictionary *)config;
 + (void)setViewControllerName:(NSString *)className forURL:(NSString *)url;
