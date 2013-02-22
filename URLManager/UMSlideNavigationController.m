@@ -124,7 +124,6 @@
 {
     CGPoint translation = [recognizer translationInView:self.contentView];
     CGPoint velocity = [recognizer velocityInView:self.contentView];
-    CGFloat newLeft = self.left;
     if(recognizer.state == UIGestureRecognizerStateChanged && 2 <= ABS(self.left - ABS(translation.x))) { // sliding.
         if (! self.moving) {
             if (0 < self.left) {
@@ -135,7 +134,7 @@
             }
         }
         self.moving = YES;
-        newLeft = self.left + translation.x;
+        CGFloat newLeft = self.left + translation.x;
         if (0 > newLeft) {
             newLeft = 0;
         }
