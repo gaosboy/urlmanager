@@ -218,21 +218,43 @@
 {
     self = [super init];
     if (self) {
-        self.items = items;
+        self.items = [[NSMutableArray alloc] init];
+        for (NSArray *section in items) {
+            [self.items addObject:[section mutableCopy]];
+        }
         return self;
     }
     return nil;
 }
 
-- (void)showItemAtIndex:(NSIndexPath *)index
+- (void)showItemAtIndex:(NSIndexPath *)index withAnimation:(BOOL)animated
 {
-    if (index.section < [self.items count] && index.row < [self.items[index.section] count]) {
-        self.currentIndex = index;
-        UIBezierPath *path = [UIBezierPath bezierPath];
-        [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
-        [path addLineToPoint:CGPointMake(self.contentView.width, 0.0f)];
-        [self moveContentViewTo:CGPointMake(self.contentView.width, 0.0f) WithPath:path inDuration:0.2f];
-        [self performSelector:@selector(switchCurrentView) withObject:nil afterDelay:0.2f];
+    if (animated) {
+        if (index.section < [self.items count] && index.row < [self.items[index.section] count]) {
+            self.currentIndex = index;
+            UIBezierPath *path = [UIBezierPath bezierPath];
+            [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
+            [path addLineToPoint:CGPointMake(self.contentView.width, 0.0f)];
+            [self moveContentViewTo:CGPointMake(self.contentView.width, 0.0f) WithPath:path inDuration:0.2f];
+            [self performSelector:@selector(switchCurrentView) withObject:nil afterDelay:0.2f];
+        }
+    }
+    else {
+        if (index.section < [self.items count] && index.row < [self.items[index.section] count]) {
+            self.currentIndex = index;
+            [self.contentView removeAllSubviews];
+            self.slideView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, self.view.height)
+                                                          style:UITableViewStylePlain];
+            UIViewController *currentVC = (UIViewController *)self.items[self.currentIndex.section][self.currentIndex.row];
+            [self.contentView addSubview:currentVC.view];
+            currentVC.view.top = -20.0f;
+            
+            // 每次切换会清空contentView，这里重新贴阴影
+            UIImageView *shadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slide_navigator_shadow.png"]];
+            shadow.height = self.contentView.height;
+            shadow.right = self.contentView.left;
+            [self.contentView addSubview:shadow];
+        }
     }
 }
 
@@ -262,6 +284,8 @@
     [self.view addSubview:self.contentView];
     
     [self addPanRecognizer];
+    
+    self.currentIndex = [NSIndexPath indexPathForRow:0 inSection:0];
 }
 
 - (void)viewWillAppear:(BOOL)animated
