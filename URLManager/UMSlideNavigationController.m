@@ -195,8 +195,6 @@
 - (void)switchCurrentView
 {
     [self.contentView removeAllSubviews];
-    self.slideView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, self.view.height)
-                                                  style:UITableViewStylePlain];
     UIViewController *currentVC = (UIViewController *)self.items[self.currentIndex.section][self.currentIndex.row];
     [self.contentView addSubview:currentVC.view];
     currentVC.view.top = -20.0f;
@@ -243,8 +241,7 @@
         if (index.section < [self.items count] && index.row < [self.items[index.section] count]) {
             self.currentIndex = index;
             [self.contentView removeAllSubviews];
-            self.slideView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, self.view.height)
-                                                          style:UITableViewStylePlain];
+
             UIViewController *currentVC = (UIViewController *)self.items[self.currentIndex.section][self.currentIndex.row];
             [self.contentView addSubview:currentVC.view];
             currentVC.view.top = -20.0f;
