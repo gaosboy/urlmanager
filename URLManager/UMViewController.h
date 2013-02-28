@@ -10,7 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UMTools.h"
 #import "UMNavigationController.h"
-#import "UMSlideNavigationController.h"
 
 @interface UMViewController : UIViewController
 

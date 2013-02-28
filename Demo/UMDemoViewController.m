@@ -7,6 +7,7 @@
 //
 
 #import "UMDemoViewController.h"
+#import "UMAppDelegate.h"
 
 @interface UMDemoViewController ()
 
@@ -22,7 +23,7 @@
     
     UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithTitle:@"侧栏导航"
                                                                 style:UIBarButtonItemStylePlain
-                                                               target:self.slideNavigator
+                                                               target:[(UMAppDelegate *)[[UIApplication sharedApplication] delegate] navigator]
                                                                action:@selector(slideButtonClicked)];
     self.navigationItem.leftBarButtonItem = btnItem;
     
