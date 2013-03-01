@@ -68,19 +68,19 @@
     self.left = toPoint.x;
     
     if (0 < toPoint.x) {
-        UIControl *backToNormal = (UIControl *)[self.contentView viewWithTag:1000002];
+        UIControl *backToNormal = (UIControl *)[self.contentView viewWithTag:SLIDE_CONTROL_TAG];
         if (nil == backToNormal) {
             backToNormal = [[UIControl alloc] initWithFrame:self.contentView.bounds];
         }
         backToNormal.backgroundColor = [UIColor clearColor];
-        backToNormal.tag = 1000002;
+        backToNormal.tag = SLIDE_CONTROL_TAG;
         [backToNormal addTarget:self action:@selector(slideButtonClicked) forControlEvents:UIControlEventTouchUpInside];
         [backToNormal removeFromSuperview];
         [self.contentView addSubview:backToNormal];
         [self performSelector:@selector(slideNavigatorDidAppear) withObject:nil afterDelay:duration];
     }
     else {
-        __weak UIControl *backToNormal = (UIControl *)[self.contentView viewWithTag:1000002];
+        __weak UIControl *backToNormal = (UIControl *)[self.contentView viewWithTag:SLIDE_CONTROL_TAG];
         [backToNormal removeFromSuperview];
         [self performSelector:@selector(slideNavigatorDidDisappear) withObject:nil afterDelay:duration];
     }

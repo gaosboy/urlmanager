@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 SegmentFault.com. All rights reserved.
 //
 
+#define SLIDE_CONTROL_TAG           9000001
+
 #define UMNotificationWillShow      @"um_slide_notifcation_slide_nav_will_show"
 #define UMNotificationHidden        @"um_slide_notifcation_slide_nav_hidden"
 
