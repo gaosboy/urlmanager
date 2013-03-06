@@ -266,7 +266,7 @@
     
     UIImageView *shadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slide_navigator_shadow.png"]];
     shadow.height = self.contentView.height;
-    shadow.right = self.contentView.left;
+    shadow.right = self.contentView.left + 1.0f;
     [self.contentView addSubview:shadow];
     
     self.slideView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, self.view.height)
