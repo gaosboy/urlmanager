@@ -25,7 +25,7 @@
                                                                 style:UIBarButtonItemStylePlain
                                                                target:[(UMAppDelegate *)[[UIApplication sharedApplication] delegate] navigator]
                                                                action:@selector(slideButtonClicked)];
-    self.navigationItem.leftBarButtonItem = btnItem;
+    self.navigationItem.rightBarButtonItem = btnItem;
     
     UIButton *btnA = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     btnA.frame = CGRectMake(10.0f, 10.0f, 300.0f, 44.0f);
@@ -50,7 +50,6 @@
 
 - (void)openedFromViewControllerWithURL:(NSURL *)aUrl
 {
-    self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
     NSLog(@"Opend From:%@", aUrl.absoluteString);
 }
 

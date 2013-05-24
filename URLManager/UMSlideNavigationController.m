@@ -20,8 +20,8 @@
 @property (strong, nonatomic)   UIView            *contentView;
 // 标记ContentView的静止状态left
 @property (assign, nonatomic)   CGFloat           left;
-// 标记滑动状态
-@property (assign, nonatomic)   BOOL              moving;
+// 标记滑动状态 0，手指还没动；1，手指开始滑动，但View没动；2，View已经开始滑动
+@property (assign, nonatomic)   NSInteger         moving;
 
 // 添加手势识别
 - (void)addPanRecognizer;
@@ -84,17 +84,17 @@
         [backToNormal removeFromSuperview];
         [self performSelector:@selector(slideNavigatorDidDisappear) withObject:nil afterDelay:duration];
     }
-    self.moving = NO;
+    self.moving = 0;
 }
 
 - (void)slideButtonClicked
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
-    self.moving = YES;
-    if (0.0f < self.contentView.left) {
+    self.moving = 1;
+    if (0.0f > self.contentView.left) {
         [self viewWillDisappear:YES];
-        [path addLineToPoint:CGPointMake(self.contentView.width, 0.0f)];
+        [path addLineToPoint:CGPointMake(- self.contentView.width, 0.0f)];
         [path addLineToPoint:CGPointMake(0.0f, 0.0f)];
         [self moveContentViewTo:CGPointMake(0.0f, 0.0f)
                        WithPath:path
@@ -102,8 +102,8 @@
     }
     else {
         [self viewWillAppear:YES];
-        [path addLineToPoint:CGPointMake(SLIDE_VIEW_WIDTH, 0.0f)];
-        [self moveContentViewTo:CGPointMake(SLIDE_VIEW_WIDTH, 0.0f)
+        [path addLineToPoint:CGPointMake(- SLIDE_VIEW_WIDTH, 0.0f)];
+        [self moveContentViewTo:CGPointMake(- SLIDE_VIEW_WIDTH, 0.0f)
                        WithPath:path
                      inDuration:ANIMATION_DURATION];
     }
@@ -124,69 +124,69 @@
 {
     CGPoint translation = [recognizer translationInView:self.contentView];
     CGPoint velocity = [recognizer velocityInView:self.contentView];
-    if(recognizer.state == UIGestureRecognizerStateChanged && 2 <= ABS(self.left - ABS(translation.x))) { // sliding.
-        if (! self.moving) {
-            if (0 < self.left) {
-                [self viewWillDisappear:YES];
-            }
-            else {
+    if(recognizer.state == UIGestureRecognizerStateChanged && 2 <= ABS(self.left - ABS(translation.x))) { // 活动ing，没2个像素操作一次.
+        if (0 >= self.moving) {
+            if (0 > self.left) {
                 [self viewWillAppear:YES];
             }
+            else {
+                [self viewWillDisappear:YES];
+            }
         }
-        self.moving = YES;
+        self.moving = (self.moving) ? self.moving : 1;
         CGFloat newLeft = self.left + translation.x;
-        if (0 > newLeft) {
+        if (0 < newLeft) { // 只能向左滑动
             newLeft = 0;
         }
-        else if (SLIDE_VIEW_WIDTH < newLeft) {
-            newLeft = SLIDE_VIEW_WIDTH;
+        else if (SLIDE_VIEW_WIDTH < ABS(newLeft)) { // 滑到最终位置
+            newLeft = - SLIDE_VIEW_WIDTH;
         }
-        if (SILENT_DISTANCE < abs(translation.x)) { // more than SILENT, move
+        if ((2 == self.moving) || (SILENT_DISTANCE < ABS(translation.x))) { // 滑动超过阀值，开始动
             self.contentView.left = newLeft;
+            self.moving = 2;
         }
     }
     else if(recognizer.state == UIGestureRecognizerStateEnded) { // end slide.
         CGFloat animationDuration = 0.0f;
         CGFloat v = SLIDE_VIEW_WIDTH / ANIMATION_DURATION;
         if (0 < velocity.x) { // left to right
-            if (500.0f < velocity.x || SLIDE_VIEW_WIDTH / 2 < self.left + translation.x) { // fast or more than half
+            if (500.0f < velocity.x || SLIDE_VIEW_WIDTH / 2 > ABS(self.left + translation.x)) { // fast or more than half
                 animationDuration = (SLIDE_VIEW_WIDTH - translation.x) / v;
-                UIBezierPath *path = [UIBezierPath bezierPath];
-                [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
-                [path addLineToPoint:CGPointMake(SLIDE_VIEW_WIDTH, 0.0f)];
-                [self moveContentViewTo:CGPointMake(SLIDE_VIEW_WIDTH, 0.0f)
-                               WithPath:path
-                             inDuration:animationDuration];
-            }
-            else if (SLIDE_VIEW_WIDTH / 2 >= self.left + translation.x) {
-                animationDuration = translation.x / v;
                 UIBezierPath *path = [UIBezierPath bezierPath];
                 [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
                 [path addLineToPoint:CGPointMake(0.0f, 0.0f)];
                 [self moveContentViewTo:CGPointMake(0.0f, 0.0f)
+                               WithPath:path
+                             inDuration:animationDuration];
+            }
+            else if (SLIDE_VIEW_WIDTH / 2 <= ABS(self.left + translation.x)) {
+                animationDuration = translation.x / v;
+                UIBezierPath *path = [UIBezierPath bezierPath];
+                [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
+                [path addLineToPoint:CGPointMake(- SLIDE_VIEW_WIDTH, 0.0f)];
+                [self moveContentViewTo:CGPointMake(- SLIDE_VIEW_WIDTH, 0.0f)
                                WithPath:path
                              inDuration:animationDuration];
             }
         }
         else { // right to left
-            if (-500.0f > velocity.x || SLIDE_VIEW_WIDTH / 2 > self.left + translation.x) { // fast or more than half
+            if (-500.0f > velocity.x || SLIDE_VIEW_WIDTH / 2 < ABS(self.left + translation.x)) { // fast or more than half
                 animationDuration = (SLIDE_VIEW_WIDTH + translation.x) / v;
+                UIBezierPath *path = [UIBezierPath bezierPath];
+                [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
+                [path addLineToPoint:CGPointMake(- SLIDE_VIEW_WIDTH, 0.0f)];
+                [self moveContentViewTo:CGPointMake(- SLIDE_VIEW_WIDTH, 0.0f)
+                               WithPath:path
+                             inDuration:animationDuration];
+            }
+            else if (SLIDE_VIEW_WIDTH / 2 >= ABS(self.left + translation.x)) {
+                animationDuration = - translation.x / v;
                 UIBezierPath *path = [UIBezierPath bezierPath];
                 [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
                 [path addLineToPoint:CGPointMake(0.0f, 0.0f)];
                 [self moveContentViewTo:CGPointMake(0.0f, 0.0f)
                                WithPath:path
                              inDuration:animationDuration];
-            }
-            else if (SLIDE_VIEW_WIDTH / 2 <= self.left + translation.x) {
-                animationDuration = - translation.x / v;
-                UIBezierPath *path = [UIBezierPath bezierPath];
-                [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
-                [path addLineToPoint:CGPointMake(SLIDE_VIEW_WIDTH, 0.0f)];
-                [self moveContentViewTo:CGPointMake(SLIDE_VIEW_WIDTH, 0.0f)
-                               WithPath:path
-                             inDuration:animationDuration];
-
             }
         }
     }
@@ -203,11 +203,14 @@
     [path addLineToPoint:CGPointMake(0.0f, 0.0f)];
     [self moveContentViewTo:CGPointMake(0.0f, 0.0f) WithPath:path inDuration:ANIMATION_DURATION];
     
+#warning 阴影位置
+    /**
     // 每次切换会清空contentView，这里重新贴阴影
     UIImageView *shadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slide_navigator_shadow.png"]];
     shadow.height = self.contentView.height;
     shadow.right = self.contentView.left;
     [self.contentView addSubview:shadow];
+     **/
 }
 
 #pragma mark - public
@@ -232,8 +235,8 @@
             self.currentIndex = index;
             UIBezierPath *path = [UIBezierPath bezierPath];
             [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
-            [path addLineToPoint:CGPointMake(self.contentView.width, 0.0f)];
-            [self moveContentViewTo:CGPointMake(self.contentView.width, 0.0f) WithPath:path inDuration:0.2f];
+            [path addLineToPoint:CGPointMake(- self.contentView.width, 0.0f)];
+            [self moveContentViewTo:CGPointMake(- self.contentView.width, 0.0f) WithPath:path inDuration:0.2f];
             [self performSelector:@selector(switchCurrentView) withObject:nil afterDelay:0.2f];
         }
     }
@@ -246,11 +249,14 @@
             [self.contentView addSubview:currentVC.view];
             currentVC.view.top = -20.0f;
             
-            // 每次切换会清空contentView，这里重新贴阴影
+#warning 阴影位置
+    /**
+     // 每次切换会清空contentView，这里重新贴阴影
             UIImageView *shadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slide_navigator_shadow.png"]];
             shadow.height = self.contentView.height;
             shadow.right = self.contentView.left;
             [self.contentView addSubview:shadow];
+     **/
         }
     }
 }
@@ -269,7 +275,7 @@
     shadow.right = self.contentView.left + 1.0f;
     [self.contentView addSubview:shadow];
     
-    self.slideView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, self.view.height)
+    self.slideView = [[UITableView alloc] initWithFrame:CGRectMake(- SLIDE_VIEW_WIDTH, 0.0f, self.view.width, self.view.height)
                                                   style:UITableViewStylePlain];
     
     if (0 < self.items.count) {
