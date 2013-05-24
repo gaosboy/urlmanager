@@ -67,7 +67,7 @@
     [self.contentView.layer addAnimation:pathAnimation forKey:[NSString stringWithFormat:@"%f", [NSDate timeIntervalSinceReferenceDate]]];
     self.left = toPoint.x;
     
-    if (0 < toPoint.x) {
+    if (0 > toPoint.x) {
         UIControl *backToNormal = (UIControl *)[self.contentView viewWithTag:SLIDE_CONTROL_TAG];
         if (nil == backToNormal) {
             backToNormal = [[UIControl alloc] initWithFrame:self.contentView.bounds];
@@ -272,10 +272,10 @@
     
     UIImageView *shadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slide_navigator_shadow.png"]];
     shadow.height = self.contentView.height;
-    shadow.right = self.contentView.left + 1.0f;
+    shadow.left = self.contentView.right - 1.0f;
     [self.contentView addSubview:shadow];
     
-    self.slideView = [[UITableView alloc] initWithFrame:CGRectMake(- SLIDE_VIEW_WIDTH, 0.0f, self.view.width, self.view.height)
+    self.slideView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.width - SLIDE_VIEW_WIDTH, 0.0f, SLIDE_VIEW_WIDTH, self.view.height)
                                                   style:UITableViewStylePlain];
     
     if (0 < self.items.count) {
