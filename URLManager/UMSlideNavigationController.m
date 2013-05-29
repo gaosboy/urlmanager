@@ -159,7 +159,7 @@
                                WithPath:path
                              inDuration:animationDuration];
             }
-            else if (SLIDE_VIEW_WIDTH / 2 <= ABS(self.left + translation.x)) {
+            else if (0 > self.left && SLIDE_VIEW_WIDTH / 2 <= ABS(self.left + translation.x)) {
                 animationDuration = translation.x / v;
                 UIBezierPath *path = [UIBezierPath bezierPath];
                 [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
