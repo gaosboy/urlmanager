@@ -84,7 +84,6 @@
 - (void)testParams
 {
     NSDictionary    *params = self.url.params;
-    NSArray         *keys   = [params allKeys];
     HC_assertThat([self.url.params allKeys], HC_containsInAnyOrder(@"p1", @"p2", nil));
     GHAssertEqualStrings(@"v1", params[@"p1"], @"Wrong value.");
     GHAssertEqualStrings(@"v2", params[@"p2"], @"Wrong value.");
