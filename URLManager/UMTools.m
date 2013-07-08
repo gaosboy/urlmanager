@@ -32,6 +32,9 @@
 	NSString *ret = @"";
 	for(int i = 0; i < len; i++) {
 		switch (*c) {
+			case '~':
+				ret = [ret stringByAppendingString:@"%7E"];
+				break;
 			case '/':
 				ret = [ret stringByAppendingString:@"%2F"];
 				break;
