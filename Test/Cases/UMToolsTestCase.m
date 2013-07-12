@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 SegmentFault.com. All rights reserved.
 //
 
+#import "HCIsEqualToPoint.h"
+#import "HCIsEqualToSize.h"
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
 #import "UMToolsTestCase.h"
 #import "UMTools.h"
@@ -91,8 +93,8 @@
 - (void)testAddParams
 {
     NSURL *queryUrl = [self.noQueryUrl addParams:@{@"p1":@"v1",@"p2":@"v2"}];
-    GHAssertEqualStrings(self.url.absoluteString, queryUrl.absoluteString,
-                         @"addParam Error.");
+    HC_assertThat(queryUrl.absoluteString, HC_containsString(@"p1=v1"));
+    HC_assertThat(queryUrl.absoluteString, HC_containsString(@"p2=v2"));
 }
 
 - (void)testParams
@@ -105,9 +107,22 @@
 
 #pragma mark - UMView
 
-- (void)testFrame
+- (void)testGetPropertiesOfView
 {
-    GHAssertEquals(10.0f, 10.0f, @"");
+    HC_assertThat([NSNumber numberWithFloat:self.view.left], HC_equalToFloat(self.view.frame.origin.x));
+    HC_assertThat([NSNumber numberWithFloat:self.view.right], HC_equalToFloat(self.view.frame.origin.x + self.view.frame.size.width));
+    HC_assertThat([NSNumber numberWithFloat:self.view.top], HC_equalToFloat(self.view.frame.origin.y));
+    HC_assertThat([NSNumber numberWithFloat:self.view.bottom], HC_equalToFloat(self.view.frame.origin.y + self.view.frame.size.height));
+    
+    HC_assertThat([NSNumber numberWithFloat:self.view.centerX], HC_equalToFloat(self.view.frame.origin.x + self.view.frame.size.width / 2));
+    HC_assertThat([NSNumber numberWithFloat:self.view.centerY], HC_equalToFloat(self.view.frame.origin.y + self.view.frame.size.height / 2));
+    
+    HC_assertThat([NSNumber numberWithFloat:self.view.width], HC_equalToFloat(self.view.frame.size.width));
+    HC_assertThat([NSNumber numberWithFloat:self.view.height], HC_equalToFloat(self.view.frame.size.height));
+    
+    HC_assertThat(NSStringFromCGSize(self.view.size), HC_equalToSize(self.view.frame.size));
+    HC_assertThat(NSStringFromCGPoint(self.view.center), HC_equalToPoint(CGPointMake((self.view.frame.origin.x + self.view.frame.size.width / 2),
+                                                                                     (self.view.frame.origin.y + self.view.frame.size.height / 2))));
 }
 
 @end

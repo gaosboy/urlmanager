@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D748D344178F0A91003FD729 /* HCIsEqualToSize.m in Sources */ = {isa = PBXBuildFile; fileRef = D774D2E0178EF685003201BB /* HCIsEqualToSize.m */; };
+		D748D347178F0EF6003FD729 /* HCIsEqualToPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D748D346178F0EF6003FD729 /* HCIsEqualToPoint.m */; };
 		D74915D4168572C900D1E37C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D74915D3168572C900D1E37C /* UIKit.framework */; };
 		D74915D6168572C900D1E37C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D74915D5168572C900D1E37C /* Foundation.framework */; };
 		D74915D8168572C900D1E37C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D74915D7168572C900D1E37C /* CoreGraphics.framework */; };
@@ -21,6 +23,7 @@
 		D753F2711685D71B007C2E91 /* UMTools.m in Sources */ = {isa = PBXBuildFile; fileRef = D753F26C1685D71B007C2E91 /* UMTools.m */; };
 		D753F2721685D71B007C2E91 /* UMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D753F26E1685D71B007C2E91 /* UMViewController.m */; };
 		D76F5C731685736400215856 /* UMDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D76F5C721685736400215856 /* UMDemoViewController.m */; };
+		D774D2DD178EF526003201BB /* UMToolsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D774D2DC178EF526003201BB /* UMToolsTestCase.m */; };
 		D7D4085C16870E1A00C5C256 /* goBackItem.png in Resources */ = {isa = PBXBuildFile; fileRef = D7D4085816870E1A00C5C256 /* goBackItem.png */; };
 		D7D4085D16870E1A00C5C256 /* goBackItem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7D4085916870E1A00C5C256 /* goBackItem@2x.png */; };
 		D7D4085E16870E1A00C5C256 /* goForwardItem.png in Resources */ = {isa = PBXBuildFile; fileRef = D7D4085A16870E1A00C5C256 /* goForwardItem.png */; };
@@ -40,7 +43,6 @@
 		D7FAAA9A1781B5DD001895C7 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7FAAA991781B5DD001895C7 /* GHUnitIOS.framework */; };
 		D7FAAA9B1781B70F001895C7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F6448E1685767700DFA1D6 /* QuartzCore.framework */; };
 		D7FAAA9E1781B7E5001895C7 /* UMTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D7FAAA9D1781B7E5001895C7 /* UMTestCase.m */; };
-		D7FAAAA21781B88B001895C7 /* UMToolsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D7FAAAA11781B88B001895C7 /* UMToolsTestCase.m */; };
 		D7FAAAA31781BA67001895C7 /* UMDemoSlideNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F6448B1685741B00DFA1D6 /* UMDemoSlideNavViewController.m */; };
 		D7FAAAA41781BA67001895C7 /* UMDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D76F5C721685736400215856 /* UMDemoViewController.m */; };
 		D7FAAAA51781BA67001895C7 /* UMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D74915E3168572C900D1E37C /* UMAppDelegate.m */; };
@@ -53,6 +55,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D748D345178F0EF6003FD729 /* HCIsEqualToPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCIsEqualToPoint.h; sourceTree = "<group>"; };
+		D748D346178F0EF6003FD729 /* HCIsEqualToPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCIsEqualToPoint.m; sourceTree = "<group>"; };
 		D74915CF168572C900D1E37C /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D74915D3168572C900D1E37C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D74915D5168572C900D1E37C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -76,6 +80,10 @@
 		D753F26E1685D71B007C2E91 /* UMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMViewController.m; sourceTree = "<group>"; };
 		D76F5C711685736400215856 /* UMDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMDemoViewController.h; sourceTree = "<group>"; };
 		D76F5C721685736400215856 /* UMDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMDemoViewController.m; sourceTree = "<group>"; };
+		D774D2DB178EF526003201BB /* UMToolsTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMToolsTestCase.h; sourceTree = "<group>"; };
+		D774D2DC178EF526003201BB /* UMToolsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMToolsTestCase.m; sourceTree = "<group>"; };
+		D774D2DF178EF685003201BB /* HCIsEqualToSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCIsEqualToSize.h; sourceTree = "<group>"; };
+		D774D2E0178EF685003201BB /* HCIsEqualToSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HCIsEqualToSize.m; sourceTree = "<group>"; };
 		D7D4085616870DEC00C5C256 /* UMWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMWebViewController.h; sourceTree = "<group>"; };
 		D7D4085716870DEC00C5C256 /* UMWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMWebViewController.m; sourceTree = "<group>"; };
 		D7D4085816870E1A00C5C256 /* goBackItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goBackItem.png; sourceTree = "<group>"; };
@@ -98,8 +106,6 @@
 		D7FAAA991781B5DD001895C7 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
 		D7FAAA9C1781B7E5001895C7 /* UMTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMTestCase.h; sourceTree = "<group>"; };
 		D7FAAA9D1781B7E5001895C7 /* UMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMTestCase.m; sourceTree = "<group>"; };
-		D7FAAAA01781B88B001895C7 /* UMToolsTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMToolsTestCase.h; sourceTree = "<group>"; };
-		D7FAAAA11781B88B001895C7 /* UMToolsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMToolsTestCase.m; sourceTree = "<group>"; };
 		D7FAAAAB1781C4BE001895C7 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCHamcrestIOS.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -211,6 +217,26 @@
 			path = URLManager;
 			sourceTree = SOURCE_ROOT;
 		};
+		D774D2DA178EF526003201BB /* Cases */ = {
+			isa = PBXGroup;
+			children = (
+				D774D2DB178EF526003201BB /* UMToolsTestCase.h */,
+				D774D2DC178EF526003201BB /* UMToolsTestCase.m */,
+			);
+			path = Cases;
+			sourceTree = "<group>";
+		};
+		D774D2DE178EF543003201BB /* Matchers */ = {
+			isa = PBXGroup;
+			children = (
+				D774D2DF178EF685003201BB /* HCIsEqualToSize.h */,
+				D774D2E0178EF685003201BB /* HCIsEqualToSize.m */,
+				D748D345178F0EF6003FD729 /* HCIsEqualToPoint.h */,
+				D748D346178F0EF6003FD729 /* HCIsEqualToPoint.m */,
+			);
+			path = Matchers;
+			sourceTree = "<group>";
+		};
 		D7FAAA841781B441001895C7 /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,7 +244,8 @@
 				D7FAAA8E1781B441001895C7 /* AppDelegate.m */,
 				D7FAAA9C1781B7E5001895C7 /* UMTestCase.h */,
 				D7FAAA9D1781B7E5001895C7 /* UMTestCase.m */,
-				D7FAAA9F1781B815001895C7 /* Case */,
+				D774D2DE178EF543003201BB /* Matchers */,
+				D774D2DA178EF526003201BB /* Cases */,
 				D7FAAA851781B441001895C7 /* Supporting Files */,
 			);
 			path = Test;
@@ -238,15 +265,6 @@
 				D7FAAA941781B441001895C7 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		D7FAAA9F1781B815001895C7 /* Case */ = {
-			isa = PBXGroup;
-			children = (
-				D7FAAAA01781B88B001895C7 /* UMToolsTestCase.h */,
-				D7FAAAA11781B88B001895C7 /* UMToolsTestCase.m */,
-			);
-			path = Case;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -364,6 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D748D344178F0A91003FD729 /* HCIsEqualToSize.m in Sources */,
 				D7FAAAA31781BA67001895C7 /* UMDemoSlideNavViewController.m in Sources */,
 				D7FAAAA41781BA67001895C7 /* UMDemoViewController.m in Sources */,
 				D7FAAAA51781BA67001895C7 /* UMAppDelegate.m in Sources */,
@@ -371,11 +390,12 @@
 				D7FAAAA71781BA67001895C7 /* UMNavigationController.m in Sources */,
 				D7FAAAA81781BA67001895C7 /* UMSlideNavigationController.m in Sources */,
 				D7FAAAA91781BA67001895C7 /* UMTools.m in Sources */,
+				D774D2DD178EF526003201BB /* UMToolsTestCase.m in Sources */,
 				D7FAAAAA1781BA67001895C7 /* UMViewController.m in Sources */,
 				D7FAAA8B1781B441001895C7 /* main.m in Sources */,
 				D7FAAA8F1781B441001895C7 /* AppDelegate.m in Sources */,
 				D7FAAA9E1781B7E5001895C7 /* UMTestCase.m in Sources */,
-				D7FAAAA21781B88B001895C7 /* UMToolsTestCase.m in Sources */,
+				D748D347178F0EF6003FD729 /* HCIsEqualToPoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +567,7 @@
 				D7FAAA971781B441001895C7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
