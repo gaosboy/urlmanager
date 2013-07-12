@@ -42,7 +42,7 @@
     self.encoded                = @"%7E%21%40%23%24%25%5E%26%2A%28%29_%2B%3D-%5B%5D%7B%7D%3A%3B%22%27%3C%3E.%2C%2F%3F123qwe%E6%B1%89%E5%AD%97";
     self.url                    = [NSURL URLWithString:@"http://example.com/patha/pathb/?p2=v2&p1=v1"];
     self.noQueryUrl             = [NSURL URLWithString:@"http://example.com/patha/pathb/"];
-    self.view                   = [[UIView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 300.0f, 200.f)];
+    self.view                   = [[UIView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 100.0f, 100.f)];
 }
 
 #pragma mark - UMString
@@ -121,8 +121,57 @@
     HC_assertThat([NSNumber numberWithFloat:self.view.height], HC_equalToFloat(self.view.frame.size.height));
     
     HC_assertThat(NSStringFromCGSize(self.view.size), HC_equalToSize(self.view.frame.size));
-    HC_assertThat(NSStringFromCGPoint(self.view.center), HC_equalToPoint(CGPointMake((self.view.frame.origin.x + self.view.frame.size.width / 2),
-                                                                                     (self.view.frame.origin.y + self.view.frame.size.height / 2))));
+    HC_assertThat(NSStringFromCGPoint(self.view.origin), HC_equalToPoint(CGPointMake(self.view.frame.origin.x, self.view.frame.origin.y)));
+}
+
+- (void)testSetPropertiesOfView
+{
+    CGFloat oLeft  = self.view.frame.origin.x;
+    self.view.left += 10.0f;
+    HC_assertThat([NSNumber numberWithFloat:self.view.left], HC_equalToFloat(oLeft + 10.0f));
+    CGFloat oRight = self.view.frame.origin.x + self.view.size.width;
+    self.view.right += 10.0f;
+    HC_assertThat([NSNumber numberWithFloat:self.view.right], HC_equalToFloat(oRight + 10.0f));
+    CGFloat oTop = self.view.frame.origin.y;
+    self.view.top += 10.0f;
+    HC_assertThat([NSNumber numberWithFloat:self.view.top], HC_equalToFloat(oTop + 10.0f));
+    CGFloat oBottom = self.view.frame.origin.y + self.view.frame.size.height;
+    self.view.bottom += 10.0f;
+    HC_assertThat([NSNumber numberWithFloat:self.view.bottom], HC_equalToFloat(oBottom + 10.0f));
+    
+    CGFloat oCenterX = self.view.frame.origin.x + self.view.frame.size.width / 2;
+    self.view.centerX += 10.0f;
+    HC_assertThat([NSNumber numberWithFloat:self.view.centerX], HC_equalToFloat(oCenterX + 10.0f));
+    CGFloat oCenterY = self.view.frame.origin.y + self.view.frame.size.height / 2;
+    self.view.centerY += 10.0f;
+    HC_assertThat([NSNumber numberWithFloat:self.view.centerY], HC_equalToFloat(oCenterY + 10.0f));
+    
+    CGFloat oWidth = self.view.frame.size.width;
+    self.view.width += 10.0f;
+    HC_assertThat([NSNumber numberWithFloat:self.view.width], HC_equalToFloat(oWidth + 10.0f));
+    CGFloat oHeight = self.view.frame.size.height;
+    self.view.height += 10.0f;
+    HC_assertThat([NSNumber numberWithFloat:self.view.height], HC_equalToFloat(oHeight + 10.0f));
+    
+    CGSize nSize = CGSizeMake(self.view.frame.size.width + 10.0f, self.view.frame.size.height + 10.0f);
+    self.view.size = nSize;
+    HC_assertThat(NSStringFromCGSize(self.view.size), HC_equalToSize(nSize));
+    CGPoint nOrigin = CGPointMake(self.view.frame.origin.x, self.view.frame.origin.y);
+    self.view.origin = nOrigin;
+    HC_assertThat(NSStringFromCGPoint(self.view.origin), HC_equalToPoint(nOrigin));
+}
+
+- (void)testRemoveAllSubviews
+{
+    UIView *subViewA = [[UIView alloc] init];
+    UIView *subViewB = [[UIView alloc] init];
+    
+    [self.view addSubview:subViewA];
+    [self.view addSubview:subViewB];
+    HC_assertThat(self.view.subviews, HC_containsInAnyOrder(subViewA, subViewB, nil));
+
+    [self.view removeAllSubviews];
+    HC_assertThat(self.view.subviews, HC_empty());
 }
 
 @end
