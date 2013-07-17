@@ -10,6 +10,7 @@
 
 @implementation NSString (UMString)
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (BOOL)containsString:(NSString *)string
                options:(NSStringCompareOptions)options {
     NSRange rng = [self rangeOfString:string options:options];
@@ -24,6 +25,7 @@
     return [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (NSString *)urlencode {
 	NSString *encUrl = [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	int len = [encUrl length];
@@ -102,6 +104,7 @@
 
 @implementation NSURL (UMSTRING)
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (NSURL *)addParams:(NSDictionary *)params {
     NSMutableString *_add = nil;
     if (NSNotFound != [self.absoluteString rangeOfString:@"?"].location) {
@@ -115,13 +118,16 @@
         }
     }
     
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",self.absoluteString,[_add substringToIndex:[_add length] - 1]]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",
+                                 self.absoluteString,
+                                 [_add substringToIndex:[_add length] - 1]]];
 }
 
 - (NSDictionary *)params {
 	NSMutableDictionary* pairs = [NSMutableDictionary dictionary];
 	if (NSNotFound != [self.absoluteString rangeOfString:@"?"].location) {
-		NSString *paramString = [self.absoluteString substringFromIndex:([self.absoluteString rangeOfString:@"?"].location + 1)];
+		NSString *paramString = [self.absoluteString substringFromIndex:
+                                 ([self.absoluteString rangeOfString:@"?"].location + 1)];
 		NSCharacterSet* delimiterSet = [NSCharacterSet characterSetWithCharactersInString:@"&"];
 		NSScanner* scanner = [[NSScanner alloc] initWithString:paramString];
 		while (![scanner isAtEnd]) {
@@ -140,9 +146,11 @@
 	return [NSDictionary dictionaryWithDictionary:pairs];
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (NSString *)protocol {
     if (NSNotFound != [self.absoluteString rangeOfString:@"://"].location) {
-        return [self.absoluteString substringToIndex:([self.absoluteString rangeOfString:@"://"].location)];
+        return [self.absoluteString substringToIndex:
+                ([self.absoluteString rangeOfString:@"://"].location)];
     }
     return @"";
 }
@@ -181,6 +189,7 @@
     self.frame = frame;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (CGFloat)bottom {
     return self.frame.origin.y + self.frame.size.height;
 }
