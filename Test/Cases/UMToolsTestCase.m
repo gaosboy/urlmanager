@@ -39,10 +39,13 @@
     self.string                 = @"NSString For Test with a number 8848.";
     self.stringWithoutNumber    = @"NSString For Test.";
     self.toBeEncode             = @"~!@#$%^&*()_+=-[]{}:;\"'<>.,/?123qwe汉字";
-    self.encoded                = @"%7E%21%40%23%24%25%5E%26%2A%28%29_%2B%3D-%5B%5D%7B%7D%3A%3B%22%27%3C%3E.%2C%2F%3F123qwe%E6%B1%89%E5%AD%97";
-    self.url                    = [NSURL URLWithString:@"http://example.com/patha/pathb/?p2=v2&p1=v1"];
+    self.encoded                = @"%7E%21%40%23%24%25%5E%26%2A%28%29_%2B%3D-%5B%5D%7B%7D%3A%3B%22%\
+27%3C%3E.%2C%2F%3F123qwe%E6%B1%89%E5%AD%97";
+    self.url                    = [NSURL URLWithString:
+                                   @"http://example.com/patha/pathb/?p2=v2&p1=v1"];
     self.noQueryUrl             = [NSURL URLWithString:@"http://example.com/patha/pathb/"];
-    self.view                   = [[UIView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 100.0f, 100.f)];
+    self.view                   = [[UIView alloc] initWithFrame:
+                                   CGRectMake(10.0f, 10.0f, 100.0f, 100.f)];
 }
 
 #pragma mark - UMString
@@ -59,6 +62,7 @@
                   self.string, p);
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testUMStringContainsStringWithOptions
 {
     NSString *p = @"for";
@@ -97,6 +101,7 @@
     HC_assertThat(queryUrl.absoluteString, HC_containsString(@"p2=v2"));
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testParams
 {
     NSDictionary    *params = self.url.params;
@@ -109,21 +114,32 @@
 
 - (void)testGetPropertiesOfView
 {
-    HC_assertThat([NSNumber numberWithFloat:self.view.left], HC_equalToFloat(self.view.frame.origin.x));
-    HC_assertThat([NSNumber numberWithFloat:self.view.right], HC_equalToFloat(self.view.frame.origin.x + self.view.frame.size.width));
-    HC_assertThat([NSNumber numberWithFloat:self.view.top], HC_equalToFloat(self.view.frame.origin.y));
-    HC_assertThat([NSNumber numberWithFloat:self.view.bottom], HC_equalToFloat(self.view.frame.origin.y + self.view.frame.size.height));
+    HC_assertThat([NSNumber numberWithFloat:self.view.left],
+                  HC_equalToFloat(self.view.frame.origin.x));
+    HC_assertThat([NSNumber numberWithFloat:self.view.right],
+                  HC_equalToFloat(self.view.frame.origin.x + self.view.frame.size.width));
+    HC_assertThat([NSNumber numberWithFloat:self.view.top],
+                  HC_equalToFloat(self.view.frame.origin.y));
+    HC_assertThat([NSNumber numberWithFloat:self.view.bottom],
+                  HC_equalToFloat(self.view.frame.origin.y + self.view.frame.size.height));
     
-    HC_assertThat([NSNumber numberWithFloat:self.view.centerX], HC_equalToFloat(self.view.frame.origin.x + self.view.frame.size.width / 2));
-    HC_assertThat([NSNumber numberWithFloat:self.view.centerY], HC_equalToFloat(self.view.frame.origin.y + self.view.frame.size.height / 2));
+    HC_assertThat([NSNumber numberWithFloat:self.view.centerX],
+                  HC_equalToFloat(self.view.frame.origin.x + self.view.frame.size.width / 2));
+    HC_assertThat([NSNumber numberWithFloat:self.view.centerY],
+                  HC_equalToFloat(self.view.frame.origin.y + self.view.frame.size.height / 2));
     
-    HC_assertThat([NSNumber numberWithFloat:self.view.width], HC_equalToFloat(self.view.frame.size.width));
-    HC_assertThat([NSNumber numberWithFloat:self.view.height], HC_equalToFloat(self.view.frame.size.height));
+    HC_assertThat([NSNumber numberWithFloat:self.view.width],
+                  HC_equalToFloat(self.view.frame.size.width));
+    HC_assertThat([NSNumber numberWithFloat:self.view.height],
+                  HC_equalToFloat(self.view.frame.size.height));
     
-    HC_assertThat(NSStringFromCGSize(self.view.size), HC_equalToSize(self.view.frame.size));
-    HC_assertThat(NSStringFromCGPoint(self.view.origin), HC_equalToPoint(CGPointMake(self.view.frame.origin.x, self.view.frame.origin.y)));
+    HC_assertThat(NSStringFromCGSize(self.view.size),
+                  HC_equalToSize(self.view.frame.size));
+    HC_assertThat(NSStringFromCGPoint(self.view.origin),
+                  HC_equalToPoint(CGPointMake(self.view.frame.origin.x, self.view.frame.origin.y)));
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testSetPropertiesOfView
 {
     CGFloat oLeft  = self.view.frame.origin.x;
@@ -153,7 +169,8 @@
     self.view.height += 10.0f;
     HC_assertThat([NSNumber numberWithFloat:self.view.height], HC_equalToFloat(oHeight + 10.0f));
     
-    CGSize nSize = CGSizeMake(self.view.frame.size.width + 10.0f, self.view.frame.size.height + 10.0f);
+    CGSize nSize = CGSizeMake(self.view.frame.size.width + 10.0f,
+                              self.view.frame.size.height + 10.0f);
     self.view.size = nSize;
     HC_assertThat(NSStringFromCGSize(self.view.size), HC_equalToSize(nSize));
     CGPoint nOrigin = CGPointMake(self.view.frame.origin.x, self.view.frame.origin.y);
@@ -161,6 +178,7 @@
     HC_assertThat(NSStringFromCGPoint(self.view.origin), HC_equalToPoint(nOrigin));
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testRemoveAllSubviews
 {
     UIView *subViewA = [[UIView alloc] init];
