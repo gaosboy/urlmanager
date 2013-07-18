@@ -32,24 +32,31 @@
 	[self.webView goForward];
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)initToolBar {
 	if (nil == self.toolBar) {
-		self.toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, self.webView.bottom - 43.0f, 320.0f, 49.0f)];
+		self.toolBar = [[UIToolbar alloc]
+                        initWithFrame:CGRectMake(0.0f, self.webView.bottom - 43.0f, 320.0f, 49.0f)];
 		self.toolBar.tintColor = [UIColor darkGrayColor];
-        UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"goBackItem.png"]
-                                                                     style:UIBarButtonItemStylePlain
-                                                                    target:self
-                                                                    action:@selector(goBack)];
-        UIBarButtonItem *fowardItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"goForwardItem.png"]
-                                                                       style:UIBarButtonItemStylePlain
-                                                                      target:self
-                                                                      action:@selector(goForward)];
-        UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-                                                                                     target:self
-                                                                                     action:@selector(refresh)];
-        UIBarButtonItem *stopItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop
-                                                                                  target:self
-                                                                                  action:@selector(stop)];
+        UIBarButtonItem *backItem = [[UIBarButtonItem alloc]
+                                     initWithImage:[UIImage imageNamed:@"goBackItem.png"]
+                                     style:UIBarButtonItemStylePlain
+                                     target:self
+                                     action:@selector(goBack)];
+        
+        UIBarButtonItem *fowardItem = [[UIBarButtonItem alloc]
+                                       initWithImage:[UIImage imageNamed:@"goForwardItem.png"]
+                                       style:UIBarButtonItemStylePlain
+                                       target:self
+                                       action:@selector(goForward)];
+        UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc]
+                                        initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                        target:self
+                                        action:@selector(refresh)];
+        UIBarButtonItem *stopItem = [[UIBarButtonItem alloc]
+                                     initWithBarButtonSystemItem:UIBarButtonSystemItemStop
+                                     target:self
+                                     action:@selector(stop)];
         backItem.enabled = NO;
         fowardItem.enabled = NO;
         refreshItem.enabled = NO;
@@ -57,11 +64,17 @@
         
         [self.toolBar setItems:[NSArray arrayWithObjects:
                                 backItem,
-                                [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
+                                [[UIBarButtonItem alloc]
+                                 initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                 target:self action:nil],
                                 fowardItem,
-                                [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
+                                [[UIBarButtonItem alloc]
+                                 initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                 target:self action:nil],
                                 refreshItem,
-                                [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil],
+                                [[UIBarButtonItem alloc]
+                                 initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                 target:self action:nil],
                                 stopItem,
                                 nil
                                 ]];
@@ -70,6 +83,7 @@
     }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)refresh {
 	[self.webView reload];
 }
@@ -110,6 +124,7 @@
     [self.webView loadRequest:requestObj];
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)reloadToolBar {
 	if (self.webView.canGoBack) {
 		[[[self.toolBar items] objectAtIndex:0] setEnabled:YES];
@@ -142,8 +157,10 @@
     [super viewDidLoad];
     
     if (nil == self.webView) {
-        self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, self.view.height - 49.0f)];
-        self.webView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+        self.webView = [[UIWebView alloc]
+                        initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, self.view.height - 49.0f)];
+        self.webView.autoresizingMask =
+        (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
         self.webView.multipleTouchEnabled = NO;
         self.webView.scalesPageToFit = YES;
         self.webView.delegate = self;

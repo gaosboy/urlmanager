@@ -13,9 +13,9 @@
 #import "UMSlideNavigationController.h"
 #import "UMViewController.h"
 
-
 @interface UMSlideNavigationController ()
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // 可以滑动的View
 @property (strong, nonatomic)   UIView            *contentView;
 // 标记ContentView的静止状态left
@@ -26,7 +26,9 @@
 // 添加手势识别
 - (void)addPanRecognizer;
 // 动画
-- (void)moveContentViewTo:(CGPoint)toPoint WithPath:(UIBezierPath *)path inDuration:(CGFloat)duration;
+- (void)moveContentViewTo:(CGPoint)toPoint
+                 WithPath:(UIBezierPath *)path
+               inDuration:(CGFloat)duration;
 // 左上角导航键
 - (void)slideButtonClicked;
 - (void)slideNavigatorDidDisappear;
@@ -49,9 +51,11 @@
 
 #pragma mark - private
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)addPanRecognizer
 {
-    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(slidePanAction:)];
+    UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc]
+                                             initWithTarget:self action:@selector(slidePanAction:)];
     [self.contentView addGestureRecognizer:panRecognizer];
     self.left = self.contentView.left;
 }
@@ -59,12 +63,15 @@
 - (void)moveContentViewTo:(CGPoint)toPoint WithPath:(UIBezierPath *)path inDuration:(CGFloat)duration
 {
     self.contentView.layer.anchorPoint = CGPointZero;
-    self.contentView.layer.frame = CGRectMake(toPoint.x, toPoint.y, self.contentView.width, self.contentView.height);
+    self.contentView.layer.frame = CGRectMake(toPoint.x, toPoint.y,
+                                              self.contentView.width, self.contentView.height);
     CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     pathAnimation.duration = duration;
     pathAnimation.path = path.CGPath;
     pathAnimation.calculationMode = kCAAnimationLinear;
-    [self.contentView.layer addAnimation:pathAnimation forKey:[NSString stringWithFormat:@"%f", [NSDate timeIntervalSinceReferenceDate]]];
+    [self.contentView.layer addAnimation:pathAnimation
+                                  forKey:[NSString stringWithFormat:@"%f",
+                                          [NSDate timeIntervalSinceReferenceDate]]];
     self.left = toPoint.x;
     
     if (0 > toPoint.x) {
@@ -74,19 +81,25 @@
         }
         backToNormal.backgroundColor = [UIColor clearColor];
         backToNormal.tag = SLIDE_CONTROL_TAG;
-        [backToNormal addTarget:self action:@selector(slideButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [backToNormal addTarget:self
+                         action:@selector(slideButtonClicked)
+               forControlEvents:UIControlEventTouchUpInside];
         [backToNormal removeFromSuperview];
         [self.contentView addSubview:backToNormal];
-        [self performSelector:@selector(slideNavigatorDidAppear) withObject:nil afterDelay:duration];
+        [self performSelector:@selector(slideNavigatorDidAppear)
+                   withObject:nil afterDelay:duration];
     }
     else {
-        __weak UIControl *backToNormal = (UIControl *)[self.contentView viewWithTag:SLIDE_CONTROL_TAG];
+        __weak UIControl *backToNormal = (UIControl *)[self.contentView
+                                                       viewWithTag:SLIDE_CONTROL_TAG];
         [backToNormal removeFromSuperview];
-        [self performSelector:@selector(slideNavigatorDidDisappear) withObject:nil afterDelay:duration];
+        [self performSelector:@selector(slideNavigatorDidDisappear)
+                   withObject:nil afterDelay:duration];
     }
     self.moving = 0;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)slideButtonClicked
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
@@ -120,11 +133,13 @@
     [self viewDidAppear:YES];
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)slidePanAction:(UIPanGestureRecognizer *)recognizer
 {
     CGPoint translation = [recognizer translationInView:self.contentView];
     CGPoint velocity = [recognizer velocityInView:self.contentView];
-    if(recognizer.state == UIGestureRecognizerStateChanged && 2 <= ABS(self.left - ABS(translation.x))) { // 活动ing，没2个像素操作一次.
+    if(recognizer.state == UIGestureRecognizerStateChanged
+       && 2 <= ABS(self.left - ABS(translation.x))) { // 活动ing，没2个像素操作一次.
         if (0 >= self.moving) {
             if (0 > self.left) {
                 [self viewWillAppear:YES];
@@ -150,7 +165,9 @@
         CGFloat animationDuration = 0.0f;
         CGFloat v = SLIDE_VIEW_WIDTH / ANIMATION_DURATION;
         if (0 < velocity.x) { // left to right
-            if (500.0f < velocity.x || SLIDE_VIEW_WIDTH / 2 > ABS(self.left + translation.x)) { // fast or more than half
+            // fast or more than half
+            if (500.0f < velocity.x
+                || SLIDE_VIEW_WIDTH / 2 > ABS(self.left + translation.x)) {
                 animationDuration = (SLIDE_VIEW_WIDTH - translation.x) / v;
                 UIBezierPath *path = [UIBezierPath bezierPath];
                 [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
@@ -170,7 +187,8 @@
             }
         }
         else { // right to left
-            if (-500.0f > velocity.x || SLIDE_VIEW_WIDTH / 2 < ABS(self.left + translation.x)) { // fast or more than half
+            // fast or more than half
+            if (-500.0f > velocity.x || SLIDE_VIEW_WIDTH / 2 < ABS(self.left + translation.x)) {
                 animationDuration = (SLIDE_VIEW_WIDTH + translation.x) / v;
                 UIBezierPath *path = [UIBezierPath bezierPath];
                 [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
@@ -192,10 +210,12 @@
     }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)switchCurrentView
 {
     [self.contentView removeAllSubviews];
-    UIViewController *currentVC = (UIViewController *)self.items[self.currentIndex.section][self.currentIndex.row];
+    UIViewController *currentVC
+    = (UIViewController *)self.items[self.currentIndex.section][self.currentIndex.row];
     [self.contentView addSubview:currentVC.view];
     currentVC.view.top = -20.0f;
     UIBezierPath *path = [UIBezierPath bezierPath];
@@ -206,7 +226,8 @@
 #warning 阴影位置
     /**
     // 每次切换会清空contentView，这里重新贴阴影
-    UIImageView *shadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slide_navigator_shadow.png"]];
+    UIImageView *shadow = [[UIImageView alloc] initWithImage:
+     [UIImage imageNamed:@"slide_navigator_shadow.png"]];
     shadow.height = self.contentView.height;
     shadow.right = self.contentView.left;
     [self.contentView addSubview:shadow];
@@ -228,6 +249,7 @@
     return nil;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)showItemAtIndex:(NSIndexPath *)index withAnimation:(BOOL)animated
 {
     if (animated) {
@@ -236,7 +258,8 @@
             UIBezierPath *path = [UIBezierPath bezierPath];
             [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
             [path addLineToPoint:CGPointMake(- self.contentView.width, 0.0f)];
-            [self moveContentViewTo:CGPointMake(- self.contentView.width, 0.0f) WithPath:path inDuration:0.2f];
+            [self moveContentViewTo:CGPointMake(- self.contentView.width, 0.0f)
+                           WithPath:path inDuration:0.2f];
             [self performSelector:@selector(switchCurrentView) withObject:nil afterDelay:0.2f];
         }
     }
@@ -245,14 +268,16 @@
             self.currentIndex = index;
             [self.contentView removeAllSubviews];
 
-            UIViewController *currentVC = (UIViewController *)self.items[self.currentIndex.section][self.currentIndex.row];
+            UIViewController *currentVC
+            = (UIViewController *)self.items[self.currentIndex.section][self.currentIndex.row];
             [self.contentView addSubview:currentVC.view];
             currentVC.view.top = -20.0f;
             
 #warning 阴影位置
     /**
      // 每次切换会清空contentView，这里重新贴阴影
-            UIImageView *shadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slide_navigator_shadow.png"]];
+            UIImageView *shadow = [[UIImageView alloc]
+                                   initWithImage:[UIImage imageNamed:@"slide_navigator_shadow.png"]];
             shadow.height = self.contentView.height;
             shadow.right = self.contentView.left;
             [self.contentView addSubview:shadow];
@@ -263,6 +288,7 @@
 
 #pragma mark
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -270,17 +296,22 @@
     self.navItem = [[UINavigationItem alloc] initWithTitle:@""];
     self.contentView = [[UIView alloc] initWithFrame:self.view.bounds];
     
-    UIImageView *shadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slide_navigator_shadow.png"]];
+    UIImageView *shadow = [[UIImageView alloc]
+                           initWithImage:[UIImage imageNamed:@"slide_navigator_shadow.png"]];
     shadow.height = self.contentView.height;
     shadow.left = self.contentView.right - 1.0f;
     [self.contentView addSubview:shadow];
     
-    self.slideView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.width - SLIDE_VIEW_WIDTH, 0.0f, SLIDE_VIEW_WIDTH, self.view.height)
-                                                  style:UITableViewStylePlain];
+    self.slideView = [[UITableView alloc]
+                      initWithFrame:CGRectMake(self.view.width - SLIDE_VIEW_WIDTH,
+                                               self.view.height - 460.0f,
+                                               SLIDE_VIEW_WIDTH,
+                                               self.view.height)
+                      style:UITableViewStylePlain];
     
     if (0 < self.items.count) {
         [self.contentView addSubview:[(UIViewController *)self.items[0][0] view]];
-        [(UIViewController *)self.items[0][0] view].top = -20.0f;
+        [(UIViewController *)self.items[0][0] view].top = self.view.height - 480.0f;
     }
     
     [self.view addSubview:self.slideView];
@@ -291,6 +322,7 @@
     self.currentIndex = [NSIndexPath indexPathForRow:0 inSection:0];
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];

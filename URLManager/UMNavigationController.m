@@ -19,6 +19,7 @@
 
 #pragma mark - static
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 + (NSMutableDictionary *)config
 {
     static NSMutableDictionary *config;
@@ -52,6 +53,7 @@
     [self openURL:url withQuery:nil];
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)openURL:(NSURL *)url withQuery:(NSDictionary *)query
 {
     UMViewController *lastViewController = (UMViewController *)[self.viewControllers lastObject];
@@ -79,7 +81,8 @@
         viewController.navigator = self;
     }
     else if ([@"http" isEqualToString:[url scheme]]) {
-        viewController = (UMViewController *)[[UMWebViewController alloc] initWithURL:url query:query];
+        viewController = (UMViewController *)[[UMWebViewController alloc] initWithURL:url
+                                                                                query:query];
     }
     
     return viewController;
@@ -93,6 +96,7 @@
 
 #pragma parent
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithRootViewController:(UMViewController *)aRootViewController
 {
     self = [super initWithRootViewController:aRootViewController];
