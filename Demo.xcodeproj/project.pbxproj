@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D70A51D417A3AFDA00B3B81B /* HCIsCollectionHavingInAnyOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = D70A51D317A3AFDA00B3B81B /* HCIsCollectionHavingInAnyOrder.m */; };
 		D748D344178F0A91003FD729 /* HCIsEqualToSize.m in Sources */ = {isa = PBXBuildFile; fileRef = D774D2E0178EF685003201BB /* HCIsEqualToSize.m */; };
 		D748D347178F0EF6003FD729 /* HCIsEqualToPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D748D346178F0EF6003FD729 /* HCIsEqualToPoint.m */; };
 		D74915D4168572C900D1E37C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D74915D3168572C900D1E37C /* UIKit.framework */; };
@@ -22,6 +23,7 @@
 		D753F2701685D71B007C2E91 /* UMSlideNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D753F26A1685D71B007C2E91 /* UMSlideNavigationController.m */; };
 		D753F2711685D71B007C2E91 /* UMTools.m in Sources */ = {isa = PBXBuildFile; fileRef = D753F26C1685D71B007C2E91 /* UMTools.m */; };
 		D753F2721685D71B007C2E91 /* UMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D753F26E1685D71B007C2E91 /* UMViewController.m */; };
+		D75BCB221796EC0600E41919 /* UMNavigationControllerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D75BCB211796EC0600E41919 /* UMNavigationControllerTestCase.m */; };
 		D76F5C731685736400215856 /* UMDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D76F5C721685736400215856 /* UMDemoViewController.m */; };
 		D774D2DD178EF526003201BB /* UMToolsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D774D2DC178EF526003201BB /* UMToolsTestCase.m */; };
 		D7D4085C16870E1A00C5C256 /* goBackItem.png in Resources */ = {isa = PBXBuildFile; fileRef = D7D4085816870E1A00C5C256 /* goBackItem.png */; };
@@ -55,6 +57,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D70A51D217A3AFDA00B3B81B /* HCIsCollectionHavingInAnyOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCIsCollectionHavingInAnyOrder.h; sourceTree = "<group>"; };
+		D70A51D317A3AFDA00B3B81B /* HCIsCollectionHavingInAnyOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCIsCollectionHavingInAnyOrder.m; sourceTree = "<group>"; };
 		D748D345178F0EF6003FD729 /* HCIsEqualToPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCIsEqualToPoint.h; sourceTree = "<group>"; };
 		D748D346178F0EF6003FD729 /* HCIsEqualToPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCIsEqualToPoint.m; sourceTree = "<group>"; };
 		D74915CF168572C900D1E37C /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +82,8 @@
 		D753F26C1685D71B007C2E91 /* UMTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMTools.m; sourceTree = "<group>"; };
 		D753F26D1685D71B007C2E91 /* UMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMViewController.h; sourceTree = "<group>"; };
 		D753F26E1685D71B007C2E91 /* UMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMViewController.m; sourceTree = "<group>"; };
+		D75BCB201796EC0600E41919 /* UMNavigationControllerTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMNavigationControllerTestCase.h; sourceTree = "<group>"; };
+		D75BCB211796EC0600E41919 /* UMNavigationControllerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMNavigationControllerTestCase.m; sourceTree = "<group>"; };
 		D76F5C711685736400215856 /* UMDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMDemoViewController.h; sourceTree = "<group>"; };
 		D76F5C721685736400215856 /* UMDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMDemoViewController.m; sourceTree = "<group>"; };
 		D774D2DB178EF526003201BB /* UMToolsTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMToolsTestCase.h; sourceTree = "<group>"; };
@@ -222,6 +228,8 @@
 			children = (
 				D774D2DB178EF526003201BB /* UMToolsTestCase.h */,
 				D774D2DC178EF526003201BB /* UMToolsTestCase.m */,
+				D75BCB201796EC0600E41919 /* UMNavigationControllerTestCase.h */,
+				D75BCB211796EC0600E41919 /* UMNavigationControllerTestCase.m */,
 			);
 			path = Cases;
 			sourceTree = "<group>";
@@ -233,6 +241,8 @@
 				D774D2E0178EF685003201BB /* HCIsEqualToSize.m */,
 				D748D345178F0EF6003FD729 /* HCIsEqualToPoint.h */,
 				D748D346178F0EF6003FD729 /* HCIsEqualToPoint.m */,
+				D70A51D217A3AFDA00B3B81B /* HCIsCollectionHavingInAnyOrder.h */,
+				D70A51D317A3AFDA00B3B81B /* HCIsCollectionHavingInAnyOrder.m */,
 			);
 			path = Matchers;
 			sourceTree = "<group>";
@@ -394,8 +404,10 @@
 				D7FAAAAA1781BA67001895C7 /* UMViewController.m in Sources */,
 				D7FAAA8B1781B441001895C7 /* main.m in Sources */,
 				D7FAAA8F1781B441001895C7 /* AppDelegate.m in Sources */,
+				D70A51D417A3AFDA00B3B81B /* HCIsCollectionHavingInAnyOrder.m in Sources */,
 				D7FAAA9E1781B7E5001895C7 /* UMTestCase.m in Sources */,
 				D748D347178F0EF6003FD729 /* HCIsEqualToPoint.m in Sources */,
+				D75BCB221796EC0600E41919 /* UMNavigationControllerTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
