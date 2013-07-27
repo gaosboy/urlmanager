@@ -189,7 +189,9 @@
     HC_assertThat(self.view.subviews, HC_containsInAnyOrder(subViewA, subViewB, nil));
 
     [self.view removeAllSubviews];
-    HC_assertThat(self.view.subviews, HC_empty());
+    if (nil != self.view.subviews) {
+        HC_assertThat(self.view.subviews, HC_empty());
+    }
 }
 
 @end
