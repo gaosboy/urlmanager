@@ -87,7 +87,7 @@
     GHAssertEqualStrings([self.toBeEncode urlencode], self.encoded,
                          @"URLEncode Error.",
                          self.toBeEncode, self.encoded);
-    GHAssertEqualStrings(self.encoded, [self.toBeEncode urlencode],
+    GHAssertEqualStrings([self.encoded urldecode], self.toBeEncode,
                          @"URLDecode Error.",
                          self.encoded, self.toBeEncode);
 }
