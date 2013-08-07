@@ -31,6 +31,7 @@
 		D7D4085E16870E1A00C5C256 /* goForwardItem.png in Resources */ = {isa = PBXBuildFile; fileRef = D7D4085A16870E1A00C5C256 /* goForwardItem.png */; };
 		D7D4085F16870E1A00C5C256 /* goForwardItem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7D4085B16870E1A00C5C256 /* goForwardItem@2x.png */; };
 		D7D4086016870F1A00C5C256 /* UMWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D4085716870DEC00C5C256 /* UMWebViewController.m */; };
+		D7E5F0C317A65E6D005F0F40 /* UMViewControllerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D7E5F0C217A63894005F0F40 /* UMViewControllerTestCase.m */; };
 		D7F6448C1685741B00DFA1D6 /* UMDemoSlideNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F6448B1685741B00DFA1D6 /* UMDemoSlideNavViewController.m */; };
 		D7F6448F1685767700DFA1D6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F6448E1685767700DFA1D6 /* QuartzCore.framework */; };
 		D7FAAA811781B441001895C7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D74915D3168572C900D1E37C /* UIKit.framework */; };
@@ -96,6 +97,8 @@
 		D7D4085916870E1A00C5C256 /* goBackItem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goBackItem@2x.png"; sourceTree = "<group>"; };
 		D7D4085A16870E1A00C5C256 /* goForwardItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goForwardItem.png; sourceTree = "<group>"; };
 		D7D4085B16870E1A00C5C256 /* goForwardItem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goForwardItem@2x.png"; sourceTree = "<group>"; };
+		D7E5F0C117A63894005F0F40 /* UMViewControllerTestCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMViewControllerTestCase.h; sourceTree = "<group>"; };
+		D7E5F0C217A63894005F0F40 /* UMViewControllerTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMViewControllerTestCase.m; sourceTree = "<group>"; };
 		D7F6448A1685741B00DFA1D6 /* UMDemoSlideNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMDemoSlideNavViewController.h; sourceTree = "<group>"; };
 		D7F6448B1685741B00DFA1D6 /* UMDemoSlideNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMDemoSlideNavViewController.m; sourceTree = "<group>"; };
 		D7F6448E1685767700DFA1D6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -230,6 +233,8 @@
 				D774D2DC178EF526003201BB /* UMToolsTestCase.m */,
 				D75BCB201796EC0600E41919 /* UMNavigationControllerTestCase.h */,
 				D75BCB211796EC0600E41919 /* UMNavigationControllerTestCase.m */,
+				D7E5F0C117A63894005F0F40 /* UMViewControllerTestCase.h */,
+				D7E5F0C217A63894005F0F40 /* UMViewControllerTestCase.m */,
 			);
 			path = Cases;
 			sourceTree = "<group>";
@@ -392,6 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7E5F0C317A65E6D005F0F40 /* UMViewControllerTestCase.m in Sources */,
 				D748D344178F0A91003FD729 /* HCIsEqualToSize.m in Sources */,
 				D7FAAAA31781BA67001895C7 /* UMDemoSlideNavViewController.m in Sources */,
 				D7FAAAA41781BA67001895C7 /* UMDemoViewController.m in Sources */,
