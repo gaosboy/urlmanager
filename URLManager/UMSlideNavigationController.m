@@ -217,7 +217,6 @@
     UIViewController *currentVC
     = (UIViewController *)self.items[self.currentIndex.section][self.currentIndex.row];
     [self.contentView addSubview:currentVC.view];
-    currentVC.view.top = -20.0f;
     UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
     [path addLineToPoint:CGPointMake(0.0f, 0.0f)];
@@ -271,7 +270,6 @@
             UIViewController *currentVC
             = (UIViewController *)self.items[self.currentIndex.section][self.currentIndex.row];
             [self.contentView addSubview:currentVC.view];
-            currentVC.view.top = -20.0f;
             
 #warning 阴影位置
     /**
@@ -304,14 +302,13 @@
     
     self.slideView = [[UITableView alloc]
                       initWithFrame:CGRectMake(self.view.width - SLIDE_VIEW_WIDTH,
-                                               self.view.height - 460.0f,
+                                               20.0f,
                                                SLIDE_VIEW_WIDTH,
                                                self.view.height)
                       style:UITableViewStylePlain];
     
     if (0 < self.items.count) {
         [self.contentView addSubview:[(UIViewController *)self.items[0][0] view]];
-        [(UIViewController *)self.items[0][0] view].top = self.view.height - 480.0f;
     }
     
     [self.view addSubview:self.slideView];

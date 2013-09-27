@@ -19,7 +19,6 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor lightGrayColor];
-    self.navigationItem.title = [self.params objectForKey:@"title"];
     
     UIBarButtonItem *btnItem = [[UIBarButtonItem alloc] initWithTitle:@"侧栏导航"
                                                                 style:UIBarButtonItemStylePlain
@@ -28,13 +27,13 @@
     self.navigationItem.rightBarButtonItem = btnItem;
     
     UIButton *btnA = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btnA.frame = CGRectMake(10.0f, 10.0f, 300.0f, 44.0f);
+    btnA.frame = CGRectMake(10.0f, 75.0f, 300.0f, 44.0f);
     [btnA setTitle:@"um://demo?title=openfrombtn&keya=valuea&keyb=valueb" forState:UIControlStateNormal];
     [btnA addTarget:self action:@selector(open:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnA];
     
     UIButton *btnB = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btnB.frame = CGRectMake(10.0f, 60.0f, 300.0f, 44.0f);
+    btnB.frame = CGRectMake(10.0f, 129.0f, 300.0f, 44.0f);
     [btnB setTitle:@"bad://donotopen/wrong/path/?notopen=1" forState:UIControlStateNormal];
     [btnB addTarget:self action:@selector(open:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnB];

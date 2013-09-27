@@ -36,7 +36,7 @@
 - (void)initToolBar {
 	if (nil == self.toolBar) {
 		self.toolBar = [[UIToolbar alloc]
-                        initWithFrame:CGRectMake(0.0f, self.webView.bottom - 43.0f, 320.0f, 49.0f)];
+                        initWithFrame:CGRectMake(0.0f, self.webView.bottom - 49.0f, 320.0f, 49.0f)];
 		self.toolBar.tintColor = [UIColor darkGrayColor];
         UIBarButtonItem *backItem = [[UIBarButtonItem alloc]
                                      initWithImage:[UIImage imageNamed:@"goBackItem.png"]
@@ -80,6 +80,7 @@
                                 ]];
         
         [self.view addSubview:self.toolBar];
+        self.webView.height -= self.toolBar.height;
     }
 }
 
@@ -101,12 +102,18 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
+    if ([self.params.allKeys containsObject:@"title"]) {
+        self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    }
     [self reloadToolBar];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [self reloadToolBar];
+    if ([self.params.allKeys containsObject:@"title"]) {
+        self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
@@ -158,7 +165,7 @@
     
     if (nil == self.webView) {
         self.webView = [[UIWebView alloc]
-                        initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, self.view.height - 49.0f)];
+                        initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, self.view.height)];
         self.webView.autoresizingMask =
         (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
         self.webView.multipleTouchEnabled = NO;

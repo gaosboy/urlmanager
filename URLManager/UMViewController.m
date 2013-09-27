@@ -59,8 +59,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.top += self.view.height - 460.0f;
-    self.view.height = 460.0f;
+    if ([[self.params allKeys] containsObject:@"title"]) {
+        self.navigationItem.title = [self.params objectForKey:@"title"];
+    }
 }
 
 @end
