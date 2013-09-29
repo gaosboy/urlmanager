@@ -105,7 +105,7 @@
     UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
     self.moving = 1;
-    if (0.0f > self.contentView.left) {
+    if (0.0f > self.contentView.left) { // 打开 -> 关闭
         [self viewWillDisappear:YES];
         [path addLineToPoint:CGPointMake(- self.contentView.width, 0.0f)];
         [path addLineToPoint:CGPointMake(0.0f, 0.0f)];
@@ -113,7 +113,7 @@
                        WithPath:path
                      inDuration:ANIMATION_DURATION + 0.2];
     }
-    else {
+    else { // 关闭 -> 打开
         [self viewWillAppear:YES];
         [path addLineToPoint:CGPointMake(- SLIDE_VIEW_WIDTH, 0.0f)];
         [self moveContentViewTo:CGPointMake(- SLIDE_VIEW_WIDTH, 0.0f)
@@ -139,9 +139,9 @@
     CGPoint translation = [recognizer translationInView:self.contentView];
     CGPoint velocity = [recognizer velocityInView:self.contentView];
     if(recognizer.state == UIGestureRecognizerStateChanged
-       && 2 <= ABS(self.left - ABS(translation.x))) { // 活动ing，没2个像素操作一次.
+       && 2 <= ABS(self.left - ABS(translation.x))) { // 活动ing，每2个像素操作一次.
         if (0 >= self.moving) {
-            if (0 > self.left) {
+            if (0 <= self.left) {
                 [self viewWillAppear:YES];
             }
             else {
@@ -317,6 +317,7 @@
     [self addPanRecognizer];
     
     self.currentIndex = [NSIndexPath indexPathForRow:0 inSection:0];
+    self.slideView.hidden = YES;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -324,12 +325,14 @@
 {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] postNotificationName:UMNotificationWillShow object:nil];
+    self.slideView.hidden = NO;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] postNotificationName:UMNotificationHidden object:nil];
+    self.slideView.hidden = YES;
 }
 
 @end
