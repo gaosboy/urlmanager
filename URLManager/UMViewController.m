@@ -12,16 +12,26 @@
 #define SILENT_DISTANCE_B           20.0f
 
 #import "UMViewController.h"
+#import "UMNavigator.h"
 
 @interface UMViewController ()
+
+- (void)openURL:(NSURL *)url withQuery:(NSDictionary *)query;
+
 @end
 
 @implementation UMViewController
 
-@synthesize navigator               = _navigator;
 @synthesize url                     = _url;
 @synthesize params                  = _params;
 @synthesize query                   = _query;
+
+- (void)openURL:(NSURL *)url withQuery:(NSDictionary *)query
+{
+    [self.navigationController pushViewController:
+     [[UMNavigator sharedNavigator] viewControllerForURL:url withQuery:query]
+                                         animated:YES];
+}
 
 #pragma mark - public
 

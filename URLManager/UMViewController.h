@@ -9,11 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "UMTools.h"
-#import "UMNavigationController.h"
 
 @interface UMViewController : UIViewController
 
-@property (unsafe_unretained, nonatomic) UMNavigationController         *navigator;
 @property (strong, nonatomic) NSDictionary                              *params;
 @property (strong, nonatomic) NSDictionary                              *query;
 @property (strong, nonatomic) NSURL                                     *url;

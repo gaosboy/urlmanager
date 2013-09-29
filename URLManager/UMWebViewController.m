@@ -94,7 +94,7 @@
         [self.webView stopLoading];
     }
     else {
-        [self.navigator popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -103,7 +103,10 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     if ([self.params.allKeys containsObject:@"title"]) {
-        self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+        self.navigationItem.title = [self.params objectForKey:@"title"];
+    }
+    else {
+        self.navigationItem.title = @"Loading...";
     }
     [self reloadToolBar];
 }
@@ -112,7 +115,11 @@
 {
     [self reloadToolBar];
     if ([self.params.allKeys containsObject:@"title"]) {
-        self.navigationItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+        self.navigationItem.title = [self.params objectForKey:@"title"];
+    }
+    else {
+        self.navigationItem.title =
+        [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     }
 }
 

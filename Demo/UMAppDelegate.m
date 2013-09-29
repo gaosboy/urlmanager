@@ -8,27 +8,33 @@
 
 #import "UMAppDelegate.h"
 #import "UMTools.h"
-#import "UMNavigationController.h"
 #import "UMDemoSlideNavViewController.h"
+#import "UMNavigationController.h"
+#import "UMNavigator.h"
 
 @implementation UMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-    [[UMNavigationController config] setValuesForKeysWithDictionary:[[NSDictionary alloc] initWithObjectsAndKeys:
-                                                                     @"UMDemoViewController", @"um://demo",
-                                                                     nil]];
+    [[UMNavigator sharedNavigator] setViewControllerName:@"UMDemoViewController"
+                                                  forURL:@"um://demo"];
+
     self.navigator = [[UMDemoSlideNavViewController alloc] initWithItems:@[@[
-                      [[UMNavigationController alloc] initWithRootViewControllerURL:[[NSURL URLWithString:@"um://demo"]
-                                                                                     addParams:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                                                @"Demo1", @"title", nil]]],
-                      [[UMNavigationController alloc] initWithRootViewControllerURL:[[NSURL URLWithString:@"um://demo"]
-                                                                                     addParams:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                                                @"Demo2", @"title", nil]]],
-                      [[UMNavigationController alloc] initWithRootViewControllerURL:[[NSURL URLWithString:@"http://sf.gg"]
-                                                                                     addParams:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                                                @"SegmentFault", @"title", nil]]],
+                      [[UINavigationController alloc] initWithRootViewControllerURL:
+                       [[NSURL URLWithString:@"um://demo"]
+                        addParams:[NSDictionary dictionaryWithObjectsAndKeys:
+                                   @"Demo1", @"title", nil]]],
+
+                      [[UINavigationController alloc] initWithRootViewControllerURL:
+                       [[NSURL URLWithString:@"um://demo"]
+                        addParams:[NSDictionary dictionaryWithObjectsAndKeys:
+                                   @"Demo2", @"title", nil]]],
+
+                      [[UINavigationController alloc] initWithRootViewControllerURL:
+                       [[NSURL URLWithString:@"http://sf.gg"]
+                        addParams:[NSDictionary dictionaryWithObjectsAndKeys:
+                                   @"SegmentFault", @"title", nil]]],
                       ]]];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

@@ -8,6 +8,7 @@
 
 #import "UMDemoViewController.h"
 #import "UMAppDelegate.h"
+#import "UMNavigator.h"
 
 @interface UMDemoViewController ()
 
@@ -44,7 +45,12 @@
 
 - (void)open:(UIButton *)btn
 {
-    [self.navigator openURL:[NSURL URLWithString:btn.titleLabel.text]];
+    [self.navigationController pushViewController:
+     [[UMNavigator sharedNavigator] viewControllerForURL:
+      [NSURL URLWithString:btn.titleLabel.text]
+                                               withQuery:nil]
+                                         animated:YES];
+//    [[UMNavigator sharedNavigator] openURL:[NSURL URLWithString:btn.titleLabel.text]];
 }
 
 - (void)openedFromViewControllerWithURL:(NSURL *)aUrl
