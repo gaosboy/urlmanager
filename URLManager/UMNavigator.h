@@ -21,6 +21,7 @@
 + (UMNavigator *)sharedNavigator;
 
 - (void)setViewControllerName:(NSString *)className forURL:(NSString *)url;
+- (void)setViewController:(UIViewController *)vc forURL:(NSString *)url;
 
 - (void)openURL:(NSURL *)url withQuery:(NSDictionary *)query;
 - (void)openURL:(NSURL *)url;

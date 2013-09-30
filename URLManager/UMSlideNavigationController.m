@@ -253,6 +253,7 @@
 {
     if (animated) {
         if (index.section < [self.items count] && index.row < [self.items[index.section] count]) {
+            [self viewWillAppear:YES];
             self.currentIndex = index;
             UIBezierPath *path = [UIBezierPath bezierPath];
             [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];

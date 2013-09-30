@@ -43,6 +43,14 @@
     [self.config setValue:className forKey:url];
 }
 
+- (void)setViewController:(UIViewController *)vc forURL:(NSString *)url
+{
+       if (nil == self.config) {
+        self.config = [[NSMutableDictionary alloc] init];
+    }
+    [self.config setValue:vc forKey:url];
+}
+
 - (void)openURL:(NSURL *)url
 {
     [self openURL:url withQuery:nil];
@@ -52,17 +60,25 @@
 - (void)openURL:(NSURL *)url withQuery:(NSDictionary *)query
 {
     UIViewController *hostVC = [self viewControllerForURL:url withQuery:query];
-    NSArray *paths = [[NSArray alloc] initWithArray:
+    NSArray *pp = [[NSArray alloc] initWithArray:
                           [url.path componentsSeparatedByString:@"/"]];
-    NSMutableArray *pArray = [[NSMutableArray alloc] init];
-    for (NSString *p in paths) {
+    NSMutableArray *paths = [[NSMutableArray alloc] init];
+    for (NSString *p in pp) {
         if (p && 0 < p.length) {
-            [pArray addObject:p];
+            [paths addObject:p];
         }
     }
-    paths = nil;
+    pp = nil;
     
-    if ([hostVC isKindOfClass:[UITabBarController class]]) { // 只支持1位数index
+    if ([hostVC isKindOfClass:[UMSlideNavigationController class]]) {
+        NSInteger section = (0 < paths.count) ? [[paths objectAtIndex:0] integerValue] : 0;
+        NSInteger row     = (1 < paths.count) ? [[paths objectAtIndex:1] integerValue] : 0;
+        NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
+
+        UMSlideNavigationController *slideVC = (UMSlideNavigationController *)hostVC;
+        [slideVC showItemAtIndex:path withAnimation:YES];
+    }
+    else if ([hostVC isKindOfClass:[UITabBarController class]]) {
         NSInteger index = (0 < paths.count) ? [[paths objectAtIndex:0] integerValue] : 0;
         UITabBarController *tabBarVC = (UITabBarController *)hostVC;
         if (index <= tabBarVC.viewControllers.count) {
@@ -73,7 +89,7 @@
         ;;
     }
     else if ([hostVC isKindOfClass:[UIViewController class]]) {
-        if (nil == pArray || 0 >= pArray.count) {
+        if (nil == paths || 0 >= paths.count) {
             if ([[UMNavigator sharedNavigator].currentNav
                  respondsToSelector:@selector(pushViewController:animated:)]) {
                 [[UMNavigator sharedNavigator].currentNav pushViewController:hostVC animated:YES];
