@@ -41,7 +41,7 @@
     
     UIButton *btnC = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     btnC.frame = CGRectMake(10.0f, 175.0f, 300.0f, 44.0f);
-    [btnC setTitle:@"nav://slide/0/2" forState:UIControlStateNormal];
+    [btnC setTitle:@"nav://demo/tab/3/" forState:UIControlStateNormal];
     [btnC addTarget:self action:@selector(open:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnC];
     

@@ -18,11 +18,42 @@
 
 @interface UMNavigator ()
 
+- (void)pushToViewController:(UIViewController *)hostVC;
+- (void)showViewConroller:(UIViewController *)hostVC;
+
 @property (nonatomic, strong)   NSMutableDictionary         *config;
 
 @end
 
 @implementation UMNavigator
+
+#pragma mark - private
+
+- (void)showViewConroller:(UIViewController *)hostVC
+{
+    if ([[UMNavigator sharedNavigator].currentNav
+         respondsToSelector:@selector(pushViewController:animated:)]) {
+        [[UMNavigator sharedNavigator].currentNav pushViewController:hostVC animated:NO];
+    }
+    else if ([[UMNavigator sharedNavigator].currentVC.navigationController
+              respondsToSelector:@selector(pushViewController:animated:)]) {
+        [[UMNavigator sharedNavigator].currentVC.navigationController
+         pushViewController:hostVC animated:NO];
+    }
+}
+
+- (void)pushToViewController:(UIViewController *)hostVC
+{
+    if ([[UMNavigator sharedNavigator].currentNav
+         respondsToSelector:@selector(pushViewController:animated:)]) {
+        [[UMNavigator sharedNavigator].currentNav pushViewController:hostVC animated:YES];
+    }
+    else if ([[UMNavigator sharedNavigator].currentVC.navigationController
+              respondsToSelector:@selector(pushViewController:animated:)]) {
+        [[UMNavigator sharedNavigator].currentVC.navigationController
+         pushViewController:hostVC animated:YES];
+    }
+}
 
 + (UMNavigator *)sharedNavigator
 {
@@ -45,7 +76,7 @@
 
 - (void)setViewController:(UIViewController *)vc forURL:(NSString *)url
 {
-       if (nil == self.config) {
+    if (nil == self.config) {
         self.config = [[NSMutableDictionary alloc] init];
     }
     [self.config setValue:vc forKey:url];
@@ -59,7 +90,10 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)openURL:(NSURL *)url withQuery:(NSDictionary *)query
 {
+    // Host标示的ViewController
     UIViewController *hostVC = [self viewControllerForURL:url withQuery:query];
+
+    // Path数组
     NSArray *pp = [[NSArray alloc] initWithArray:
                           [url.path componentsSeparatedByString:@"/"]];
     NSMutableArray *paths = [[NSMutableArray alloc] init];
@@ -70,61 +104,104 @@
     }
     pp = nil;
     
+    // 是SlideViewController，切换 URL: nav://slide/0/1
     if ([hostVC isKindOfClass:[UMSlideNavigationController class]]) {
         NSInteger section = (0 < paths.count) ? [[paths objectAtIndex:0] integerValue] : 0;
         NSInteger row     = (1 < paths.count) ? [[paths objectAtIndex:1] integerValue] : 0;
         NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
-
-        UMSlideNavigationController *slideVC = (UMSlideNavigationController *)hostVC;
-        [slideVC showItemAtIndex:path withAnimation:YES];
+        if (section < ((UMSlideNavigationController *)hostVC).items.count
+            && row < ((NSArray *)[((UMSlideNavigationController *)hostVC).items
+                                  objectAtIndex:section]).count) {
+            [((UMSlideNavigationController *)hostVC) showItemAtIndex:path withAnimation:YES];
+        }
     }
+    // 是UITabBarController，切换 URL: nav://tab/1
     else if ([hostVC isKindOfClass:[UITabBarController class]]) {
         NSInteger index = (0 < paths.count) ? [[paths objectAtIndex:0] integerValue] : 0;
         UITabBarController *tabBarVC = (UITabBarController *)hostVC;
-        if (index <= tabBarVC.viewControllers.count) {
+        if (index < tabBarVC.viewControllers.count) {
             tabBarVC.selectedIndex = index;
         }
     }
+    // 是UINavigationController，切换 URL://??
+#warning 我还没想明白。。。
     else if ([hostVC isKindOfClass:[UINavigationController class]]) {
         ;;
     }
+    // UIViewController
     else if ([hostVC isKindOfClass:[UIViewController class]]) {
-        if (nil == paths || 0 >= paths.count) {
-            if ([[UMNavigator sharedNavigator].currentNav
-                 respondsToSelector:@selector(pushViewController:animated:)]) {
-                [[UMNavigator sharedNavigator].currentNav pushViewController:hostVC animated:YES];
+        // Path第一段被识别为上一级VC
+        if (paths && 0 < paths.count) {
+            UIViewController *vc = [self viewControllerForURL:[NSURL URLWithString:
+                                                               [NSString
+                                                                stringWithFormat:@"%@://%@",
+                                                                url.scheme,
+                                                                [paths objectAtIndex:0]]]
+                                                         withQuery:nil];
+            // 上一级VC如果是Slide，则切换到相应的，然后在用nav
+            if ([vc isKindOfClass:[UMSlideNavigationController class]]) {
+                UMSlideNavigationController *slideVC = (UMSlideNavigationController *)vc;
+                NSInteger section = (1 < paths.count) ? [[paths objectAtIndex:1] integerValue] : 0;
+                NSInteger row     = (2 < paths.count) ? [[paths objectAtIndex:2] integerValue] : 0;
+                NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
+                
+                if (section < slideVC.items.count
+                    && row < ((NSArray *)[slideVC.items objectAtIndex:section]).count) {
+                    [slideVC showItemAtIndex:path withAnimation:YES];
+                }
+                [self performSelector:@selector(showViewConroller:)
+                           withObject:hostVC
+                           afterDelay:.5f];
             }
-            else if ([[UMNavigator sharedNavigator].currentVC.navigationController
-                      respondsToSelector:@selector(pushViewController:animated:)]) {
-                [[UMNavigator sharedNavigator].currentVC.navigationController
-                 pushViewController:hostVC
-                 animated:YES];
+            // 上一级如果是tab，切换，再nav push
+            else if ([vc isKindOfClass:[UITabBarController class]]) {
+                NSInteger index = (1 < paths.count) ? [[paths objectAtIndex:1] integerValue] : 0;
+                UITabBarController *tabBarVC = (UITabBarController *)vc;
+                if (index < tabBarVC.viewControllers.count) {
+                    tabBarVC.selectedIndex = index;
+                }
+                [self performSelector:@selector(pushToViewController:)
+                           withObject:hostVC
+                           afterDelay:.3f];
             }
         }
+        else {
+            [self pushToViewController:hostVC];
+        }
     }
-//    UMViewController *lastViewController = (UMViewController *)[self.viewControllers lastObject];
-//    UMViewController *viewController = [self viewControllerForURL:url withQuery:query];
-//    if ([lastViewController shouldOpenViewControllerWithURL:url]) {
-//        [self pushViewController:viewController animated:YES];
-//        [viewController openedFromViewControllerWithURL:lastViewController.url];
-//    }
 }
 
 - (UIViewController *)viewControllerForURL:(NSURL *)url withQuery:(NSDictionary *)query
 {
-    NSString *urlString = [NSString stringWithFormat:@"%@://%@", [url scheme], [url host]];
     UIViewController* viewController = nil;
+    NSString *host = url.host;
+    NSString *home = [NSString stringWithFormat:@"%@://%@", url.scheme, url.host];
 
     if ([self URLAvailable:url]) {
-        if ([[self.config objectForKey:urlString] isKindOfClass:[UIViewController class]]) {
-            viewController = (UIViewController *)[self.config objectForKey:urlString];
+        if ([[self.config objectForKey:home] isKindOfClass:[UIViewController class]]) {
+            viewController = (UIViewController *)[self.config objectForKey:home];
+        }
+        else if ([[self.config objectForKey:host] isKindOfClass:[UIViewController class]]) {
+            viewController = (UIViewController *)[self.config objectForKey:host];
         }
         else if (nil == query) {
-            Class class = NSClassFromString([self.config objectForKey:urlString]);
+            Class class;
+            if ([self.config.allKeys containsObject:home]) {
+                class = NSClassFromString([self.config objectForKey:host]);
+            }
+            else if ([self.config.allKeys containsObject:host]) {
+                class = NSClassFromString([self.config objectForKey:host]);
+            }
             viewController = (UIViewController *)[[class alloc] initWithURL:url];
         }
         else {
-            Class class = NSClassFromString([self.config objectForKey:urlString]);
+            Class class;
+            if ([self.config.allKeys containsObject:home]) {
+                class = NSClassFromString([self.config objectForKey:home]);
+            }
+            else if ([self.config.allKeys containsObject:host]) {
+                class = NSClassFromString([self.config objectForKey:host]);
+            }
             viewController = (UIViewController *)[[class alloc] initWithURL:url query:query];
         }
     }
@@ -138,8 +215,9 @@
 
 - (BOOL)URLAvailable:(NSURL *)url
 {
-    NSString *urlString = [NSString stringWithFormat:@"%@://%@", [url scheme], [url host]];
-    return [self.config.allKeys containsObject:urlString];
+    return [self.config.allKeys containsObject:url.host]
+    || [self.config.allKeys containsObject:[NSString stringWithFormat:@"%@://%@",
+                                            url.scheme, url.host]];
 }
 
 #pragma mark - Hook

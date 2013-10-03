@@ -31,8 +31,6 @@
                inDuration:(CGFloat)duration;
 // 左上角导航键
 - (void)slideButtonClicked;
-- (void)slideNavigatorDidDisappear;
-- (void)slideNavigatorDidAppear;
 // 滑动控制
 - (void)slidePanAction:(UIPanGestureRecognizer *)recognizer;
 // 没有切换
@@ -86,15 +84,19 @@
                forControlEvents:UIControlEventTouchUpInside];
         [backToNormal removeFromSuperview];
         [self.contentView addSubview:backToNormal];
-        [self performSelector:@selector(slideNavigatorDidAppear)
-                   withObject:nil afterDelay:duration];
+        [self viewWillAppear:YES];
+        [self performSelector:@selector(viewDidAppear:)
+                   withObject:[NSNumber numberWithBool:YES]
+                   afterDelay:duration];
     }
     else {
         __weak UIControl *backToNormal = (UIControl *)[self.contentView
                                                        viewWithTag:SLIDE_CONTROL_TAG];
         [backToNormal removeFromSuperview];
-        [self performSelector:@selector(slideNavigatorDidDisappear)
-                   withObject:nil afterDelay:duration];
+        [self viewWillDisappear:YES];
+               [self performSelector:@selector(viewDidDisappear:)
+                   withObject:[NSNumber numberWithBool:YES]
+                          afterDelay:duration];
     }
     self.moving = 0;
 }
@@ -120,17 +122,6 @@
                        WithPath:path
                      inDuration:ANIMATION_DURATION];
     }
-}
-
-// 延迟运行
-- (void)slideNavigatorDidDisappear
-{
-    [self viewDidDisappear:YES];
-}
-
-- (void)slideNavigatorDidAppear
-{
-    [self viewDidAppear:YES];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
