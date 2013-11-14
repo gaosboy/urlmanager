@@ -16,7 +16,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-       [[UMNavigator sharedNavigator] setViewControllerName:@"UMDemoViewController"
+    [[UMNavigator sharedNavigator] setViewControllerName:@"UMDemoViewController"
                                                   forURL:@"demo"];
     
     UINavigationController *navA = [[UINavigationController alloc] initWithRootViewControllerURL:
@@ -59,9 +59,9 @@
     
     self.navigator = [[UMDemoSlideNavViewController alloc]
                       initWithItems:@[@[navA, navB, navC], @[tab]]];
-   
-    [[UMNavigator sharedNavigator] setViewController:navA forURL:@"nava"];
-    [[UMNavigator sharedNavigator] setViewController:navB forURL:@"navb"];
+
+    [[UMNavigator sharedNavigator] setViewControllersForKeysFromDictionary:@{@"nava":navA,
+                                                                             @"navb":navB}];
     [[UMNavigator sharedNavigator] setViewController:navC forURL:@"navc"];
     [[UMNavigator sharedNavigator] setViewController:tab forURL:@"tab"];
     [[UMNavigator sharedNavigator] setViewController:self.navigator forURL:@"slide"];

@@ -82,6 +82,16 @@
     [self.config setValue:vc forKey:url];
 }
 
+- (void)setViewControllersForKeysFromDictionary:(NSDictionary *)dict
+{
+    if (nil == self.config) {
+        self.config = [[NSMutableDictionary alloc] init];
+    }
+    for (NSString *key in [dict allKeys]) {
+        [self.config setValue:[dict objectForKey:key] forKey:key];
+    }
+}
+
 - (void)openURL:(NSURL *)url
 {
     [self openURL:url withQuery:nil];
