@@ -16,32 +16,62 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     [[UMNavigator sharedNavigator] setViewControllerName:@"UMDemoViewController"
-                                                  forURL:@"um://demo"];
+                                                  forURL:@"demo"];
+    
+    UINavigationController *navA = [[UINavigationController alloc] initWithRootViewControllerURL:
+                                    [[NSURL URLWithString:@"um://demo"]
+                                     addParams:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                @"Demo1", @"title", nil]]];
+    
+    UINavigationController *navB = [[UINavigationController alloc] initWithRootViewControllerURL:
+                                    [[NSURL URLWithString:@"um://demo"]
+                                     addParams:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                @"Demo2", @"title", nil]]];
+    
+    UINavigationController *navC = [[UINavigationController alloc] initWithRootViewControllerURL:
+                                    [[NSURL URLWithString:@"http://sf.gg"]
+                                     addParams:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                @"SegmentFault", @"title", nil]]];
+    
+    UINavigationController *navD = [[UINavigationController alloc] initWithRootViewControllerURL:
+                                                                       [[NSURL URLWithString:@"um://demo"]
+                                     addParams:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                @"Demo1", @"title", nil]]];
+    
+    UINavigationController *navE = [[UINavigationController alloc] initWithRootViewControllerURL:
+                                    [[NSURL URLWithString:@"http://sf.gg"]
+                                     addParams:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                @"SegmentFault", @"title", nil]]];
+    
+    UINavigationController *navF = [[UINavigationController alloc] initWithRootViewControllerURL:
+                                    [[NSURL URLWithString:@"http://sf.gg"]
+                                     addParams:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                @"SegmentFault", @"title", nil]]];
+    
+    UINavigationController *navG = [[UINavigationController alloc] initWithRootViewControllerURL:
+                                    [[NSURL URLWithString:@"http://sf.gg"]
+                                     addParams:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                @"SegmentFault", @"title", nil]]];
+    
+    UITabBarController *tab = [[UITabBarController alloc] init];
+    [tab setViewControllers:@[navD, navE, navF, navG]];
+    
+    self.navigator = [[UMDemoSlideNavViewController alloc]
+                      initWithItems:@[@[navA, navB, navC], @[tab]]];
 
-    self.navigator = [[UMDemoSlideNavViewController alloc] initWithItems:@[@[
-                      [[UINavigationController alloc] initWithRootViewControllerURL:
-                       [[NSURL URLWithString:@"um://demo"]
-                        addParams:[NSDictionary dictionaryWithObjectsAndKeys:
-                                   @"Demo1", @"title", nil]]],
-
-                      [[UINavigationController alloc] initWithRootViewControllerURL:
-                       [[NSURL URLWithString:@"um://demo"]
-                        addParams:[NSDictionary dictionaryWithObjectsAndKeys:
-                                   @"Demo2", @"title", nil]]],
-
-                      [[UINavigationController alloc] initWithRootViewControllerURL:
-                       [[NSURL URLWithString:@"http://sf.gg"]
-                        addParams:[NSDictionary dictionaryWithObjectsAndKeys:
-                                   @"SegmentFault", @"title", nil]]],
-                      ]]];
+    [[UMNavigator sharedNavigator] setViewControllersForKeysFromDictionary:@{@"nava":navA,
+                                                                             @"navb":navB}];
+    [[UMNavigator sharedNavigator] setViewController:navC forURL:@"navc"];
+    [[UMNavigator sharedNavigator] setViewController:tab forURL:@"tab"];
+    [[UMNavigator sharedNavigator] setViewController:self.navigator forURL:@"slide"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     [self.window addSubview:self.navigator.view];
+//    [self.window addSubview:tab.view];
     return YES;
 }
 

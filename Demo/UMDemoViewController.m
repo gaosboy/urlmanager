@@ -34,10 +34,16 @@
     [self.view addSubview:btnA];
     
     UIButton *btnB = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btnB.frame = CGRectMake(10.0f, 129.0f, 300.0f, 44.0f);
+    btnB.frame = CGRectMake(10.0f, 125.0f, 300.0f, 44.0f);
     [btnB setTitle:@"bad://donotopen/wrong/path/?notopen=1" forState:UIControlStateNormal];
     [btnB addTarget:self action:@selector(open:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnB];
+    
+    UIButton *btnC = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btnC.frame = CGRectMake(10.0f, 175.0f, 300.0f, 44.0f);
+    [btnC setTitle:@"nav://demo/tab/3/" forState:UIControlStateNormal];
+    [btnC addTarget:self action:@selector(open:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnC];
     
     NSLog(@"self url:%@", self.url.absoluteString);
     NSLog(@"Params:%@", self.params);
@@ -45,12 +51,7 @@
 
 - (void)open:(UIButton *)btn
 {
-    [self.navigationController pushViewController:
-     [[UMNavigator sharedNavigator] viewControllerForURL:
-      [NSURL URLWithString:btn.titleLabel.text]
-                                               withQuery:nil]
-                                         animated:YES];
-//    [[UMNavigator sharedNavigator] openURL:[NSURL URLWithString:btn.titleLabel.text]];
+    [[UMNavigator sharedNavigator] openURL:[NSURL URLWithString:btn.titleLabel.text]];
 }
 
 - (void)openedFromViewControllerWithURL:(NSURL *)aUrl
