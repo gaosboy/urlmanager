@@ -24,29 +24,35 @@ UMViewController可以使用URL初始化（方法如下）。但一般不直接�
 - (void)openedFromViewControllerWithURL:(NSURL *)aUrl; // 从哪里来
 ```
 
-UMNavigationController
+UMNavigator
 ----
-使用URL管理机制代替UINavigationController的push和pop机制。
+UMNavigator是一个单例对象，可以监控当前显示的ViewController，并使用URL管理机制代替UINavigationController的push和pop机制。
 
 #### 注册URL和ViewController的对应关系
 
 ```
-    [[UMNavigationController config] setValuesForKeysWithDictionary:
-    	[[NSDictionary alloc] initWithObjectsAndKeys:
-			@"UMDemoViewController", @"um://demo",
-			@"UMDemoViewController", @"um://demob",
-			nil]
-		];
+    [[UMNavigator sharedNavigator] setViewControllersForKeysFromDictionary:@{@"nava":navA,                                                                             @"navb":navB}];
 ```
 
 或
 
 ```
-    [UMNavigationController setViewControllerName:@"UMDemoViewController" forURL:@"um://demo"];
-    [UMNavigationController setViewControllerName:@"UMDemoViewController" forURL:@"um://demob"];
+    [[UMNavigator sharedNavigator] setViewControllerName:@"UMDemoViewController"
+                                                  forURL:@"demo"];
 ```
 
-#### 初始化UMNavigationViewController
+或
+
+```
+    UINavigationController *navC = [[UINavigationController alloc] initWithRootViewControllerURL:
+                                    [[NSURL URLWithString:@"um://demo"]
+                                     addParams:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                @"Demo1", @"title", nil]]];
+
+    [[UMNavigator sharedNavigator] setViewController:navC forURL:@"navc"];
+```
+
+#### 初始化UMNavigationController
 
 ```
 UMNavigationController * umNav = [[UMNavigationController alloc]
@@ -60,7 +66,7 @@ UMNavigationController * umNav = [[UMNavigationController alloc]
 
 ```
 // 取代 [self.navigationController pushViewController: animated:];
-[self.navigator openURL:[NSURL URLWithString:@"um://demo?title=NextDemo&param=value"]];
+[[UMNavigator sharedNavigator] openURL:[NSURL URLWithString:@"um://demo?title=NextDemo&param=value"]];
 ```
 
 #### 调用openURL: 将会触发以下方法
@@ -105,7 +111,7 @@ UMSlideNavigationController
 }
 ```
 
-![侧栏演示](http://pic.yupoo.com/gaosboy_v/CwmNfGn2/tW3ok.png)
+![侧栏演示](http://pic.yupoo.com/gaosboy_v/DjjltGAv/4w32w.png)
 
 UMWebViewController
 ----
