@@ -274,6 +274,7 @@
      **/
         }
     }
+    [self.slideView reloadData];
 }
 
 #pragma mark

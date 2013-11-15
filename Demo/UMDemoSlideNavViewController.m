@@ -42,6 +42,12 @@
     }
     
     cell.textLabel.text = [NSString stringWithFormat:@"UMNavigationController%d", indexPath.row];
+    if (self.currentIndex.section == indexPath.section && self.currentIndex.row == indexPath.row) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     
     return cell;
 }
