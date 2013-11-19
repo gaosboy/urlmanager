@@ -18,6 +18,9 @@
 @property (nonatomic, unsafe_unretained)    UMSlideNavigationController     *currentSlide;
 @property (nonatomic, unsafe_unretained)    UMViewController                *currentVC;
 
+@property (nonatomic, strong)               NSString                        *transitionType;
+@property (nonatomic, strong)               NSString                        *transitionSubtype;
+
 + (UMNavigator *)sharedNavigator;
 
 - (void)setViewControllerName:(NSString *)className forURL:(NSString *)url;

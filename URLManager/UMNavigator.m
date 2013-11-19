@@ -14,16 +14,24 @@
 #import <objc/objc.h>
 #import <objc/runtime.h>
 
+#define umtType         @"transition_type"
+#define umtSubtype      @"transition_subtype"
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @interface UMNavigator ()
 
+extern NSString * const kCATransitionNone;
+
 - (void)pushToViewController:(UIViewController *)hostVC;
 - (void)showViewConroller:(UIViewController *)hostVC;
+- (void)pushToViewController:(UIViewController *)hostVC withAnimation:(NSDictionary *)animation;
 
 @property (nonatomic, strong)   NSMutableDictionary         *config;
 
 @end
+
+NSString * const kCATransitionNone = @"kca_transition_none";
 
 @implementation UMNavigator
 
@@ -31,28 +39,51 @@
 
 - (void)showViewConroller:(UIViewController *)hostVC
 {
-    if ([[UMNavigator sharedNavigator].currentNav
-         respondsToSelector:@selector(pushViewController:animated:)]) {
-        [[UMNavigator sharedNavigator].currentNav pushViewController:hostVC animated:NO];
-    }
-    else if ([[UMNavigator sharedNavigator].currentVC.navigationController
-              respondsToSelector:@selector(pushViewController:animated:)]) {
-        [[UMNavigator sharedNavigator].currentVC.navigationController
-         pushViewController:hostVC animated:NO];
-    }
+    [self pushToViewController:hostVC withAnimation:nil];
 }
 
 - (void)pushToViewController:(UIViewController *)hostVC
 {
+    [self pushToViewController:hostVC withAnimation:@{umtType       : self.transitionType,
+                                                      umtSubtype	: self.transitionSubtype}];
+}
+
+- (void)pushToViewController:(UIViewController *)hostVC withAnimation:(NSDictionary *)animation
+{
+    UINavigationController *navC = nil;
     if ([[UMNavigator sharedNavigator].currentNav
          respondsToSelector:@selector(pushViewController:animated:)]) {
-        [[UMNavigator sharedNavigator].currentNav pushViewController:hostVC animated:YES];
+        navC = [UMNavigator sharedNavigator].currentNav;
     }
     else if ([[UMNavigator sharedNavigator].currentVC.navigationController
               respondsToSelector:@selector(pushViewController:animated:)]) {
-        [[UMNavigator sharedNavigator].currentVC.navigationController
-         pushViewController:hostVC animated:YES];
+        navC = [UMNavigator sharedNavigator].currentVC.navigationController;
     }
+ 
+    if (nil == animation
+        || nil == [animation valueForKey:umtType]
+        || kCATransitionNone == [animation valueForKey:umtType]) {
+        [navC pushViewController:hostVC animated:NO];
+    }
+    else {
+        [CATransaction begin];
+        [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+        CATransition *transition = [CATransition animation];
+        [transition setType:[animation valueForKey:umtType]];
+        [transition setSubtype:[animation valueForKey:umtSubtype]];
+        [navC.view.layer removeAllAnimations];
+        [navC.view.layer addAnimation:transition forKey:kCATransition];
+        [navC pushViewController:hostVC animated:YES];
+        [CATransaction commit];
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)presentViewController:(UIViewController *)hostVC
+{
+    [[UMNavigator sharedNavigator].currentVC presentViewController:hostVC
+                                                          animated:YES
+                                                        completion:nil];
 }
 
 + (UMNavigator *)sharedNavigator
@@ -136,7 +167,6 @@
     // 是UINavigationController，切换 URL://??
 #warning 我还没想明白。。。
     else if ([hostVC isKindOfClass:[UINavigationController class]]) {
-        ;;
     }
     // UIViewController
     else if ([hostVC isKindOfClass:[UIViewController class]]) {
@@ -228,6 +258,16 @@
     return [self.config.allKeys containsObject:url.host]
     || [self.config.allKeys containsObject:[NSString stringWithFormat:@"%@://%@",
                                             url.scheme, url.host]];
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.transitionType     = kCATransitionFade;
+        self.transitionSubtype  = kCATransitionFromRight;
+    }
+    return self;
 }
 
 #pragma mark - Hook

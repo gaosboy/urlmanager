@@ -212,16 +212,6 @@
     [path moveToPoint:CGPointMake(self.contentView.left, 0.0f)];
     [path addLineToPoint:CGPointMake(0.0f, 0.0f)];
     [self moveContentViewTo:CGPointMake(0.0f, 0.0f) WithPath:path inDuration:ANIMATION_DURATION];
-    
-#warning 阴影位置
-    /**
-    // 每次切换会清空contentView，这里重新贴阴影
-    UIImageView *shadow = [[UIImageView alloc] initWithImage:
-     [UIImage imageNamed:@"slide_navigator_shadow.png"]];
-    shadow.height = self.contentView.height;
-    shadow.right = self.contentView.left;
-    [self.contentView addSubview:shadow];
-     **/
 }
 
 #pragma mark - public
@@ -262,16 +252,6 @@
             UIViewController *currentVC
             = (UIViewController *)self.items[self.currentIndex.section][self.currentIndex.row];
             [self.contentView addSubview:currentVC.view];
-            
-#warning 阴影位置
-    /**
-     // 每次切换会清空contentView，这里重新贴阴影
-            UIImageView *shadow = [[UIImageView alloc]
-                                   initWithImage:[UIImage imageNamed:@"slide_navigator_shadow.png"]];
-            shadow.height = self.contentView.height;
-            shadow.right = self.contentView.left;
-            [self.contentView addSubview:shadow];
-     **/
         }
     }
     [self.slideView reloadData];
