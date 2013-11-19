@@ -73,7 +73,7 @@ NSString * const kCATransitionNone = @"kca_transition_none";
         [transition setSubtype:[animation valueForKey:umtSubtype]];
         [navC.view.layer removeAllAnimations];
         [navC.view.layer addAnimation:transition forKey:kCATransition];
-        [navC pushViewController:hostVC animated:YES];
+        [navC pushViewController:hostVC animated:NO];
         [CATransaction commit];
     }
 }
