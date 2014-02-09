@@ -2,6 +2,8 @@ URLManager
 ====
 URL Scheme为基础的NavigationController，让ViewController实现松耦合，不依赖
 
+2014，新年快乐，码不停提！
+
 使用
 ====
 URLManager提供两个NavigationController，一个WebViewController和一个基础ViewController，可单独使用也可结合使用。
