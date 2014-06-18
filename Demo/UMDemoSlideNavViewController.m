@@ -41,7 +41,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = [NSString stringWithFormat:@"UMNavigationController%d", indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"UMNavigationController%ld", indexPath.row];
     if (self.currentIndex.section == indexPath.section && self.currentIndex.row == indexPath.row) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }

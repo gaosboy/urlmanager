@@ -28,7 +28,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 - (NSString *)urlencode {
 	NSString *encUrl = [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	int len = [encUrl length];
+	NSUInteger len = [encUrl length];
 	const char *c;
 	c = [encUrl UTF8String];
 	NSString *ret = @"";
