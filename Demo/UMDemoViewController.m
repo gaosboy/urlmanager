@@ -54,7 +54,7 @@
 - (void)open:(UIButton *)btn
 {
     [UMNavigator sharedNavigator].transitionType = kCATransitionMoveIn;
-    [UMNavigator sharedNavigator].transitionSubtype= kCATransitionFromLeft;
+    [UMNavigator sharedNavigator].transitionSubtype= kCATransitionFromRight;
     [[UMNavigator sharedNavigator] openURL:[NSURL URLWithString:btn.titleLabel.text]];
 }
 

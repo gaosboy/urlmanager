@@ -25,6 +25,7 @@
 		D753F2721685D71B007C2E91 /* UMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D753F26E1685D71B007C2E91 /* UMViewController.m */; };
 		D75B58F317F57873007CAC6F /* UMNavigator.m in Sources */ = {isa = PBXBuildFile; fileRef = D75B58F217F57873007CAC6F /* UMNavigator.m */; };
 		D75BCB221796EC0600E41919 /* UMNavigationControllerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D75BCB211796EC0600E41919 /* UMNavigationControllerTestCase.m */; };
+		D7642B91195183560048960B /* UIViewController+Ex.m in Sources */ = {isa = PBXBuildFile; fileRef = D7642B90195183560048960B /* UIViewController+Ex.m */; };
 		D76F5C731685736400215856 /* UMDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D76F5C721685736400215856 /* UMDemoViewController.m */; };
 		D774D2DD178EF526003201BB /* UMToolsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D774D2DC178EF526003201BB /* UMToolsTestCase.m */; };
 		D7D4085C16870E1A00C5C256 /* goBackItem.png in Resources */ = {isa = PBXBuildFile; fileRef = D7D4085816870E1A00C5C256 /* goBackItem.png */; };
@@ -88,6 +89,8 @@
 		D75B58F217F57873007CAC6F /* UMNavigator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMNavigator.m; sourceTree = "<group>"; };
 		D75BCB201796EC0600E41919 /* UMNavigationControllerTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMNavigationControllerTestCase.h; sourceTree = "<group>"; };
 		D75BCB211796EC0600E41919 /* UMNavigationControllerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMNavigationControllerTestCase.m; sourceTree = "<group>"; };
+		D7642B8F195183560048960B /* UIViewController+Ex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Ex.h"; sourceTree = "<group>"; };
+		D7642B90195183560048960B /* UIViewController+Ex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Ex.m"; sourceTree = "<group>"; };
 		D76F5C711685736400215856 /* UMDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMDemoViewController.h; sourceTree = "<group>"; };
 		D76F5C721685736400215856 /* UMDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMDemoViewController.m; sourceTree = "<group>"; };
 		D774D2DB178EF526003201BB /* UMToolsTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMToolsTestCase.h; sourceTree = "<group>"; };
@@ -225,6 +228,8 @@
 				D753F26C1685D71B007C2E91 /* UMTools.m */,
 				D753F26D1685D71B007C2E91 /* UMViewController.h */,
 				D753F26E1685D71B007C2E91 /* UMViewController.m */,
+				D7642B8F195183560048960B /* UIViewController+Ex.h */,
+				D7642B90195183560048960B /* UIViewController+Ex.m */,
 				D75B58F117F57873007CAC6F /* UMNavigator.h */,
 				D75B58F217F57873007CAC6F /* UMNavigator.m */,
 			);
@@ -386,6 +391,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7642B91195183560048960B /* UIViewController+Ex.m in Sources */,
 				D7D4086016870F1A00C5C256 /* UMWebViewController.m in Sources */,
 				D74915E0168572C900D1E37C /* main.m in Sources */,
 				D74915E4168572C900D1E37C /* UMAppDelegate.m in Sources */,

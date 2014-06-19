@@ -264,47 +264,10 @@ NSString * const kCATransitionNone = @"kca_transition_none";
 {
     self = [super init];
     if (self) {
-        self.transitionType     = kCATransitionFade;
+        self.transitionType     = kCATransitionMoveIn;
         self.transitionSubtype  = kCATransitionFromRight;
     }
     return self;
-}
-
-#pragma mark - Hook
-
-- (void)newViewDidAppear:(BOOL)animated
-{
-    if ([self isKindOfClass:[UINavigationController class]]) {
-        [UMNavigator sharedNavigator].currentNav = (UINavigationController *)self;
-    }
-    else if ([self isKindOfClass:[UITabBarController class]]) {
-        [UMNavigator sharedNavigator].currentTab = (UITabBarController *)self;
-    }
-    else if ([self isKindOfClass:[UMSlideNavigationController class]]) {
-        [UMNavigator sharedNavigator].currentSlide = (UMSlideNavigationController *)self;
-    }
-    else if ([self isKindOfClass:[UMViewController class]]) {
-        [UMNavigator sharedNavigator].currentVC = (UMViewController *)self;
-    }
-    
-    [self performSelector:@selector(originViewDidAppear:)
-               withObject:[NSNumber numberWithBool:animated]];
-}
-
-+ (void)initialize
-{
-    Method oriDidAppear = class_getInstanceMethod([UIViewController class],
-                                                  @selector(viewDidAppear:));
-    Method newDidAppear = class_getInstanceMethod([self class],
-                                                  @selector(newViewDidAppear:));
-    
-    IMP oriDidAppearImp = method_getImplementation(oriDidAppear);
-    class_addMethod([UIViewController class], @selector(originViewDidAppear:),
-                    oriDidAppearImp, method_getTypeEncoding(oriDidAppear));
-    
-    IMP newDidAppearImp = method_getImplementation(newDidAppear);
-    class_replaceMethod([UIViewController class], @selector(viewDidAppear:),
-                        newDidAppearImp, method_getTypeEncoding(oriDidAppear));
 }
 
 @end
