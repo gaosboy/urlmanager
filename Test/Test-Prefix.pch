@@ -1,5 +1,0 @@
-//
-// Prefix header for all source files of the 'Test' target in the 'Test' project
-//
-
-#import "Demo-Prefix.pch"
